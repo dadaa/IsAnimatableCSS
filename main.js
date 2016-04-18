@@ -58,18 +58,21 @@ function toUI(testcase, result) {
 
   var originalProperty = testcase.property + ":" +
                          "[" + testcase.from + ", " + testcase.to + "]";
-  appendElement("div", ["cell", "property"], originalProperty, resultElement);
+  var animatableClass = testcase.isAnimatableProperty
+                        ? "animatable" : "no-animatable";
+  appendElement("div", ["cell", "property", animatableClass],
+                originalProperty, resultElement);
   if (result.error) {
     var errorElement = appendElement("div", ["cell", "error"],
                                      result.error, resultElement);
     resultElement.classList.add("error");
   } else {
-    var resultClass
-    if (testcase.from == result.from && testcase.to == result.to) {
-      resultClass = result.half != result.to ? "animated" : "discreted";
-    } else {
-      resultClass = "ignored";
-    }
+    var resultClass =
+      testcase.from == result.from && testcase.to == result.to
+      ? result.half != result.to
+      ? "animated"
+      : "discreted"
+      : "ignored"
     resultElement.classList.add(resultClass);
 
     appendElement("div", ["cell", "value"], result.from, resultElement);

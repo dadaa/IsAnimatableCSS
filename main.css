@@ -55,6 +55,11 @@ main {
   width: 400px;
 }
 
+.cell.property.animatable:before {
+  content: "■";
+  color: yellow;
+}
+
 .cell.value {
   width: 150px;
 }
