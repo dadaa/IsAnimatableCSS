@@ -68,7 +68,7 @@ function toUI(testcase, result) {
     resultElement.classList.add("error");
   } else {
     var resultClass =
-      testcase.from == result.from && testcase.to == result.to
+      result.from != result.to
       ? result.half != result.to
       ? "animated"
       : "discreted"
