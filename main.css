@@ -22,12 +22,21 @@ main {
   background-color: #bbf;
 }
 
+.result.discreted {
+  background-color: darkturquoise;
+}
+
+.result.animated {
+  background-color: pink;
+}
+
 .result:first-child {
-  background-color: #99f;
+  background-color: pink;
+  font-weight: bold;
 }
 
 .result.error {
-  background-color: pink;
+  background-color: red;
 }
 
 .cell {
@@ -47,9 +56,9 @@ main {
 }
 
 .cell.value {
-  width: 100px;
+  width: 150px;
 }
 
 .cell.error {
-  width: 300px;
+  width: 450px;
 }

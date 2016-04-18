@@ -40,7 +40,11 @@ function appendElement(tag, classes, content, parent) {
   classes.forEach(function(clazz) {
     element.classList.add(clazz);
   });
-  if (typeof content !== 'undefined') {
+  if (typeof content === "undefined") {
+    element.textContent = "undefined";
+  } else if (content.length == 0) {
+    element.innerHTML = "&nbsp;";
+  } else {
     element.textContent = content;
   }
   parent.appendChild(element);
@@ -60,6 +64,14 @@ function toUI(testcase, result) {
                                      result.error, resultElement);
     resultElement.classList.add("error");
   } else {
+    var resultClass
+    if (testcase.from == result.from && testcase.to == result.to) {
+      resultClass = result.half != result.to ? "animated" : "discreted";
+    } else {
+      resultClass = "ignored";
+    }
+    resultElement.classList.add(resultClass);
+
     appendElement("div", ["cell", "value"], result.from, resultElement);
     appendElement("div", ["cell", "value"], result.half, resultElement);
     appendElement("div", ["cell", "value"], result.to, resultElement);
@@ -71,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var resultElement =
     appendElement("div", ["result"], "", resultsElement);
 
-  appendElement("div", ["cell", "property"], "property", resultElement);
+  appendElement("div", ["cell", "property"], "CSS property", resultElement);
   appendElement("div", ["cell", "value"], "from", resultElement);
   appendElement("div", ["cell", "value"], "half", resultElement);
   appendElement("div", ["cell", "value"], "to", resultElement);
