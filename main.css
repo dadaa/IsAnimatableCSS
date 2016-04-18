@@ -2,7 +2,36 @@
   width: 100px;
 }
 
+header {
+  width: 400px;
+  font-weight: 100;
+}
+
+#full-animation {
+  background-color: pink;
+  text-align: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+#discreted-animation {
+  background-color: darkturquoise;
+  text-align: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+#animatable-animation {
+  background-color: lightGray;
+  text-align: center;
+  padding: 0.5em 0 0.5em 0;
+}
+
+#animatable-animation:before {
+  content: "■";
+  color: yellow;
+}
+
 main {
+  margin-top: 32px;
 }
 
 #results {
