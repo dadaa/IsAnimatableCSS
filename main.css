@@ -1,0 +1,55 @@
+#target {
+  width: 100px;
+}
+
+main {
+}
+
+#results {
+  display: inline-block;
+}
+
+.result {
+  font-weight: 100;
+  border-bottom: 1px solid white;
+}
+
+.result:nth-child(odd) {
+  background-color: #ddf;
+}
+
+.result:nth-child(even) {
+  background-color: #bbf;
+}
+
+.result:first-child {
+  background-color: #99f;
+}
+
+.result.error {
+  background-color: pink;
+}
+
+.cell {
+  display: inline-block;
+  text-align: center;
+  border-left: 1px solid white;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.cell:first-child {
+  border: none;
+}
+
+.cell.property {
+  width: 400px;
+}
+
+.cell.value {
+  width: 100px;
+}
+
+.cell.error {
+  width: 300px;
+}
