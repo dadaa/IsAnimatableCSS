@@ -7,27 +7,13 @@ header {
   font-weight: 100;
 }
 
-#full-animation {
-  background-color: pink;
-  text-align: center;
-  padding: 0.5em 0 0.5em 0;
-}
-
-#discrete-animation {
-  background-color: darkturquoise;
+header > div {
   text-align: center;
   padding: 0.5em 0 0.5em 0;
 }
 
 #animatable-animation {
-  background-color: lightGray;
-  text-align: center;
-  padding: 0.5em 0 0.5em 0;
-}
-
-#animatable-animation:before {
-  content: "■";
-  color: yellow;
+  background-color: lightgrey;
 }
 
 main {
@@ -41,22 +27,21 @@ main {
 .result {
   font-weight: 100;
   border-bottom: 1px solid white;
-}
-
-.result:nth-child(odd) {
-  background-color: #ddf;
+  background-color: #ddd;
 }
 
 .result:nth-child(even) {
-  background-color: #bbf;
+  background-color: #eee;
 }
 
+#discrete-animation,
 .result.discrete {
-  background-color: darkturquoise;
+  background: linear-gradient(to bottom, #fff5d3 0%,#ffeeba 100%);
 }
 
+#full-animation,
 .result.animated {
-  background-color: pink;
+  background: linear-gradient(to bottom, #c9fcd4 0%,#aef9bd 100%);
 }
 
 .result:first-child {
@@ -84,9 +69,11 @@ main {
   width: 400px;
 }
 
+#animatable-animation:before,
 .cell.property.animatable:before {
-  content: "■";
-  color: yellow;
+  content: "✔️";
+  color: green;
+  margin-right: 0.3em;
 }
 
 .cell.value {
