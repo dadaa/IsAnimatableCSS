@@ -86,10 +86,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var resultElement =
     appendElement("div", ["result"], "", resultsElement);
 
-  appendElement("div", ["cell", "property"], "CSS property", resultElement);
-  appendElement("div", ["cell", "value"], "from", resultElement);
-  appendElement("div", ["cell", "value"], "half", resultElement);
-  appendElement("div", ["cell", "value"], "to", resultElement);
+  appendElement("div", ["cell", "property"], "CSS property and test values",
+                resultElement);
+  appendElement("div", ["cell", "value"], "0%", resultElement);
+  appendElement("div", ["cell", "value"], "50%", resultElement);
+  appendElement("div", ["cell", "value"], "100%", resultElement);
 
   TESTCASES.forEach(function(testcase) {
     var result = execute(testcase.property, testcase.from, testcase.to);
