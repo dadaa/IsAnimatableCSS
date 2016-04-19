@@ -13,7 +13,7 @@ header {
   padding: 0.5em 0 0.5em 0;
 }
 
-#discreted-animation {
+#discrete-animation {
   background-color: darkturquoise;
   text-align: center;
   padding: 0.5em 0 0.5em 0;
@@ -51,7 +51,7 @@ main {
   background-color: #bbf;
 }
 
-.result.discreted {
+.result.discrete {
   background-color: darkturquoise;
 }
 

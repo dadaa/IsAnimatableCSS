@@ -71,7 +71,7 @@ function toUI(testcase, result) {
       result.from != result.to
       ? result.half != result.to
       ? "animated"
-      : "discreted"
+      : "discrete"
       : "ignored"
     resultElement.classList.add(resultClass);
 
