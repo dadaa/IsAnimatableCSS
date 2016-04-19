@@ -1,7 +1,4 @@
 var TESTCASES = [
-  { "property": "additive-symbols",
-    "from": "1 '0'",
-    "to": "I 5" },
   { "property": "align-content",
     "from": "flex-start",
     "to": "flex-end" },
@@ -809,9 +806,6 @@ var TESTCASES = [
   { "property": "suffix",
     "from": ")",
     "to": ">" },
-  { "property": "symbols",
-    "from": "A B C",
-    "to": "D E F" },
   { "property": "system",
     "from": "cyclic",
     "to": "alphabetic" },

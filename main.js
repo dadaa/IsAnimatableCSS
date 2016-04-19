@@ -16,7 +16,7 @@ function execute(property, from, to) {
   target.id = "target";
   document.body.appendChild(target);
   var keyframe = {};
-  keyframe[property] = [from, to];
+  keyframe[propertyToIDL(property)] = [from, to];
   var animation;
   try {
     animation = target.animate(keyframe,
@@ -33,6 +33,17 @@ function execute(property, from, to) {
 
   document.body.removeChild(target);
   return { from: fromResult, half: halfResult, to: toResult };
+}
+
+function propertyToIDL(property) {
+  if (property == 'float') {
+    return 'cssFloat';
+  }
+
+  // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
+  return property.replace(/-([a-z])/gi, function(str, group) {
+    return group.toUpperCase();
+  });
 }
 
 function appendElement(tag, classes, content, parent) {
@@ -71,7 +82,7 @@ function toUI(testcase, result) {
       result.from != result.to
       ? result.half != result.to
       ? "animated"
-      : "discreted"
+      : "discrete"
       : "ignored"
     resultElement.classList.add(resultClass);
 
@@ -86,10 +97,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var resultElement =
     appendElement("div", ["result"], "", resultsElement);
 
-  appendElement("div", ["cell", "property"], "CSS property", resultElement);
-  appendElement("div", ["cell", "value"], "from", resultElement);
-  appendElement("div", ["cell", "value"], "half", resultElement);
-  appendElement("div", ["cell", "value"], "to", resultElement);
+  appendElement("div", ["cell", "property"], "CSS property and test values",
+                resultElement);
+  appendElement("div", ["cell", "value"], "0%", resultElement);
+  appendElement("div", ["cell", "value"], "50%", resultElement);
+  appendElement("div", ["cell", "value"], "100%", resultElement);
 
   TESTCASES.forEach(function(testcase) {
     var result = execute(testcase.property, testcase.from, testcase.to);
