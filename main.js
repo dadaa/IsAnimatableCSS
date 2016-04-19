@@ -16,7 +16,7 @@ function execute(property, from, to) {
   target.id = "target";
   document.body.appendChild(target);
   var keyframe = {};
-  keyframe[property] = [from, to];
+  keyframe[propertyToIDL(property)] = [from, to];
   var animation;
   try {
     animation = target.animate(keyframe,
@@ -33,6 +33,17 @@ function execute(property, from, to) {
 
   document.body.removeChild(target);
   return { from: fromResult, half: halfResult, to: toResult };
+}
+
+function propertyToIDL(property) {
+  if (property == 'float') {
+    return 'cssFloat';
+  }
+
+  // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
+  return property.replace(/-([a-z])/gi, function(str, group) {
+    return group.toUpperCase();
+  });
 }
 
 function appendElement(tag, classes, content, parent) {
