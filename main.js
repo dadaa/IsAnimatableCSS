@@ -74,11 +74,15 @@ function pushTestcase(testcases, datatypeOrTestcases,
       console.error(datatypeOrTestcase + " is not found.");
       return;
     }
-    if (animatableListBySpec.includes(datatypeOrTestcase)) {
+    var isAnimatableBySpec = animatableListBySpec.includes(datatypeOrTestcase);
+    if (isAnimatableBySpec) {
       animatablePropertyName = datatypeOrTestcase;
     }
     pushTestcase(testcases, variable.testcases,
                  animatableListBySpec, animatablePropertyName);
+    if (isAnimatableBySpec) {
+      animatablePropertyName = null;
+    }
   });
 }
 
