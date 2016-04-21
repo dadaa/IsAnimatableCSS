@@ -1,12 +1,23 @@
 var CSSProperties =
 {
+  // Data format
+  // "$property-name": {
+  //  "links": [
+  //    "$link-to-spec1",
+  //    ...
+  //  ],
+  //  "test-datatypes": ["<$datatyoe>" or ["start value", "end value"], ...],
+  //  "animatables": ["<$datatyoe>", ...], // by individual spec.
+  //  "css-transition-animatables": ["<$datatyoe>", ...] // by css transition spec
+  // },
+  // also please ref CSSDataTypes.js
+
   "align-content": {
     "links": [
       "http://www.w3.org/TR/2014/WD-css-align-3-20141218/#propdef-align-content",
       "http://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#propdef-align-content"
     ],
-    "test-datatypes": ["<content-position>"], //@see CSSDataTypes.js
-    "animatables": []
+    "test-datatypes": ["<content-position>"] //@see CSSDataTypes.js
   },
   "align-items": {
     "links": [
@@ -136,7 +147,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#background-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "background-image": {
     "links": [
@@ -159,7 +171,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#background-position"
     ],
     "test-datatypes": ["<position>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "background-repeat": {
     "links": [
@@ -210,7 +223,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-bottom-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "border-bottom-left-radius": {
     "links": [
@@ -240,7 +254,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-bottom-width"
     ],
     "test-datatypes": ["<line-width>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<color>"]
   },
   "border-boundary": {
     "links": [
@@ -297,7 +312,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-left-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "border-left-style": {
     "links": [
@@ -313,7 +329,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-left-width"
     ],
     "test-datatypes": ["<line-width>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "border-right-color": {
     "links": [
@@ -321,7 +338,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-right-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "border-right-style": {
     "links": [
@@ -337,14 +355,16 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-right-width"
     ],
     "test-datatypes": ["<line-width>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "border-spacing": {
     "links": [
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/tables.html#propdef-border-spacing"
     ],
     "test-datatypes": ["<length>"],
-    "animatables": []
+    "animatables": [],
+    "css-transition-animatables": ["<length>"]
   },
   "border-top-color": {
     "links": [
@@ -352,7 +372,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-top-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "border-top-left-radius": {
     "links": [
@@ -382,7 +403,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2014/CR-css3-background-20140909/#border-top-width"
     ],
     "test-datatypes": ["<line-width>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "box-decoration-break": {
     "links": [
@@ -495,8 +517,9 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visufx.html#propdef-clip",
       "http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#propdef-clip"
     ],
-    "test-datatypes": ["<rect()>"],
-    "animatables": []
+    "test-datatypes": ["<rectangle>"],
+    "animatables": [],
+    "css-transition-animatables": ["<rectangle>"]
   },
   "clip-path": {
     "links": [
@@ -620,7 +643,7 @@ var CSSProperties =
     "links": [
       "http://www.w3.org/TR/2003/WD-css3-content-20030514#crop"
     ],
-    "test-datatypes": ["<rect()>"],
+    "test-datatypes": ["<rectangle>"],
     "animatables": []
   },
   "cue-after": {
@@ -830,7 +853,8 @@ var CSSProperties =
     ],
     "test-datatypes":
       ["<absolute-size>", "<relative-size>", "<length>", "<percentage>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "font-size-adjust": {
     "links": [
@@ -909,7 +933,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-weight"
     ],
     "test-datatypes": ["<font-weight>"],
-    "animatables": ["<font-weight>"]
+    "animatables": ["<font-weight>"],
+    "css-transition-animatables": ["<font-weight>"]
   },
   "footnote-display": {
     "links": [
@@ -1046,7 +1071,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-height"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "hyphenate-character": {
     "links": [
@@ -1169,7 +1195,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/WD-css3-positioning-20150203/#propdef-left"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "letter-spacing": {
     "links": [
@@ -1177,7 +1204,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2013/WD-css-text-3-20131010/#letter-spacing"
     ],
     "test-datatypes": ["<length>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "lighting-color": {
     "links": [
@@ -1205,7 +1233,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-line-height"
     ],
     "test-datatypes": ["<number>", "<length>", "<percentage>"],
-    "animatables": ["<number>", "<length>"]
+    "animatables": ["<number>", "<length>"],
+    "css-transition-animatables": ["<number>", "<length>"]
   },
   "line-snap": {
     "links": [
@@ -1244,7 +1273,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-margin-bottom"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "margin-left": {
     "links": [
@@ -1252,7 +1282,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-margin-left"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "margin-right": {
     "links": [
@@ -1260,7 +1291,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-margin-right"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "margin-top": {
     "links": [
@@ -1268,7 +1300,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-margin-top"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "marker-end": {
     "links": [
@@ -1465,7 +1498,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-max-height"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "max-lines": {
     "links": [
@@ -1480,7 +1514,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-max-width"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "min-height": {
     "links": [
@@ -1488,7 +1523,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-min-height"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "min-width": {
     "links": [
@@ -1496,7 +1532,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-min-width"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "mix-blend-mode": {
     "links": [
@@ -1610,7 +1647,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-css3-color-20110607#opacity"
     ],
     "test-datatypes": ["<alphavalue>"],
-    "animatables": ["<alphavalue>"]
+    "animatables": ["<alphavalue>"],
+    "css-transition-animatables": ["<alphavalue>"]
   },
   "order": {
     "links": [
@@ -1633,7 +1671,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/CR-css-ui-3-20150707/#propdef-outline-color"
     ],
     "test-datatypes": ["<color>"],
-    "animatables": ["<color>"]
+    "animatables": ["<color>"],
+    "css-transition-animatables": ["<color>"]
   },
   "outline-offset": {
     "links": [
@@ -1656,7 +1695,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/CR-css-ui-3-20150707/#propdef-outline-width"
     ],
     "test-datatypes": ["<border-style>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "css-transition-animatables": ["<length>"]
   },
   "overflow": {
     "links": [
@@ -1703,7 +1743,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-padding-bottom"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>"]
   },
   "padding-left": {
     "links": [
@@ -1711,7 +1752,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-padding-left"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>"]
   },
   "padding-right": {
     "links": [
@@ -1719,7 +1761,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-padding-right"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>"]
   },
   "padding-top": {
     "links": [
@@ -1727,7 +1770,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#propdef-padding-top"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>"]
   },
   "page": {
     "links": [
@@ -1907,7 +1951,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/WD-css3-positioning-20150203/#propdef-right"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>"]
   },
   "rotation": {
     "links": [
@@ -2246,7 +2291,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2013/WD-css-text-3-20131010/#text-indent"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "text-justify": {
     "links": [
@@ -2274,7 +2320,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2013/CR-css-text-decor-3-20130801/#text-shadow"
     ],
     "test-datatypes": ["<shadow>"], //originaly none | [ <length>{2,3} && <color>? ]#
-    "animatables": ["<shadow>"]
+    "animatables": ["<shadow>"],
+    "css-transition-animatables": ["<shadow>"]
   },
   "text-space-collapse": {
     "links": [
@@ -2325,7 +2372,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/WD-css3-positioning-20150203/#propdef-top"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "transform": {
     "links": [
@@ -2403,8 +2451,9 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-vertical-align",
       "http://www.w3.org/TR/2015/WD-css-inline-3-20150917/#propdef-vertical-align"
     ],
-    "test-datatypes": ["<baseline-shift>"],
-    "animatables": []
+    "test-datatypes": ["<baseline-shift>", "<length>"],
+    "animatables": [],
+    "css-transition-animatables": ["<length>"]
   },
   "visibility": {
     "links": [
@@ -2412,7 +2461,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visufx.html#propdef-visibility"
     ],
     "test-datatypes": ["<visibility>"],
-    "animatables": ["<visibility>"]
+    "animatables": ["<visibility>"],
+    "css-transition-animatables": ["<visibility>"]
   },
   "voice-balance": {
     "links": [
@@ -2501,7 +2551,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#propdef-width"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "will-change": {
     "links": [
@@ -2523,7 +2574,8 @@ var CSSProperties =
       "http://www.w3.org/TR/2013/WD-css-text-3-20131010/#word-spacing"
     ],
     "test-datatypes": ["<length>", "<percentage>"],
-    "animatables": ["<length>", "<percentage>"]
+    "animatables": ["<length>", "<percentage>"],
+    "css-transition-animatables": ["<length>", "<percentage>"]
   },
   "word-wrap": {
     "links": [
@@ -2580,6 +2632,7 @@ var CSSProperties =
       "http://www.w3.org/TR/2015/WD-css3-positioning-20150203/#propdef-z-index"
     ],
     "test-datatypes": ["<integer>"],
-    "animatables": ["<integer>"]
+    "animatables": ["<integer>"],
+    "css-transition-animatables": ["<integer>"]
   }
 };

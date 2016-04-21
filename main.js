@@ -1,95 +1,21 @@
-function propertyToIDL(property) {
-  if (property == 'float') {
-    return 'cssFloat';
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  build();
+});
 
-  // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
-  return property.replace(/-([a-z])/gi, function(str, group) {
-    return group.toUpperCase();
+function build() {
+  Object.keys(CSSProperties).forEach(function (propertyName) {
+    buildOne(propertyName, CSSProperties[propertyName]);
   });
 }
 
-function appendElement(tag, classes, content, parent) {
-  var element = document.createElement(tag);
-  classes.forEach(function(clazz) {
-    element.classList.add(clazz);
+function buildOne(propertyName, propertyData) {
+  var animatables = propertyData["css-transition-animatables"];
+  animatables = animatables ? animatables : [];
+  var testcases = getTestcases(propertyData["test-datatypes"], animatables);
+  testcases.forEach(function(testcase) {
+    var result = animate(propertyName, testcase.values);
+    toUI(propertyName, testcase, result);
   });
-  if (typeof content === "undefined") {
-    element.textContent = "undefined";
-  } else if (content.length == 0) {
-    element.innerHTML = "&nbsp;";
-  } else {
-    element.textContent = content;
-  }
-  parent.appendChild(element);
-  return element
-}
-
-function toUI(propertyName, testcase, result) {
-  var resultsElement = document.getElementById("results");
-  var resultElement =
-    appendElement("div", ["result"], "", resultsElement);
-
-  var originalProperty = propertyName + ":" + JSON.stringify(testcase.values);
-  var originalPropertyElement =
-    appendElement("div", ["cell", "property"], originalProperty, resultElement);
-  if (testcase.animatablePropertyName) {
-    originalPropertyElement.classList.add("animatable");
-    var animatablePropertyNameElement =
-      appendElement("a", [],
-                    testcase.animatablePropertyName, originalPropertyElement);
-    var specLink = CSSDataTypes[testcase.animatablePropertyName].link;
-    animatablePropertyNameElement.setAttribute("href", specLink);
-  }
-
-  if (result.error) {
-    var errorElement = appendElement("div", ["cell", "error"],
-                                     result.error, resultElement);
-    resultElement.classList.add("error");
-  } else {
-    var resultClass =
-      result.from != result.to
-      ? result.half != result.to
-      ? "animated"
-      : "discrete"
-      : "ignored"
-    resultElement.classList.add(resultClass);
-
-    appendElement("div", ["cell", "value"], result.from, resultElement);
-    appendElement("div", ["cell", "value"], result.half, resultElement);
-    appendElement("div", ["cell", "value"], result.to, resultElement);
-  }
-}
-
-function pushTestcase(testcases, datatypeOrTestcases,
-                      animatableListBySpec, animatablePropertyName) {
-  datatypeOrTestcases.forEach(function(datatypeOrTestcase) {
-    if (Array.isArray(datatypeOrTestcase)) {
-      testcases.push({ "animatablePropertyName": animatablePropertyName,
-                       "values": datatypeOrTestcase });
-      return; // return in forEach is same as continue in normal loop
-    }
-    var variable = CSSDataTypes[datatypeOrTestcase];
-    if (!variable) {
-      console.error(datatypeOrTestcase + " is not found.");
-      return;
-    }
-    var isAnimatableBySpec = animatableListBySpec.includes(datatypeOrTestcase);
-    if (isAnimatableBySpec) {
-      animatablePropertyName = datatypeOrTestcase;
-    }
-    pushTestcase(testcases, variable.testcases,
-                 animatableListBySpec, animatablePropertyName);
-    if (isAnimatableBySpec) {
-      animatablePropertyName = null;
-    }
-  });
-}
-
-function getTestcases(datatypes, animatableListBySpec) {
-  var testcases = [];
-  pushTestcase(testcases, datatypes, animatableListBySpec, null);
-  return testcases;
 }
 
 function animate(propertyName, values) {
@@ -115,31 +41,131 @@ function animate(propertyName, values) {
   return { from: fromResult, half: halfResult, to: toResult };
 }
 
-function buildOne(propertyName, propertyData) {
-  var testcases = getTestcases(propertyData["test-datatypes"],
-                               propertyData["animatables"]);
-  testcases.forEach(function(testcase) {
-    var result = animate(propertyName, testcase.values);
-    toUI(propertyName, testcase, result);
+function getTestcases(datatypes, animatableDataTypeListBySpec) {
+  var testcases = [];
+  pushTestcase(testcases, datatypes, null, animatableDataTypeListBySpec, null);
+  return testcases;
+}
+
+function pushTestcase(testcases, datatypeOrTestcases, originalDataType,
+                      animatableDataTypeListBySpec, currentAnimatableDataType) {
+  datatypeOrTestcases.forEach(function(datatypeOrTestcase) {
+    if (Array.isArray(datatypeOrTestcase)) { // testcase
+      testcases.push({ "animatableDataType": currentAnimatableDataType,
+                       "originalDataType": originalDataType,
+                       "values": datatypeOrTestcase });
+      return; // return in forEach is same as continue in normal loop
+    }
+    // datatype
+    var variable = CSSDataTypes[datatypeOrTestcase];
+    if (!variable) {
+      console.error(datatypeOrTestcase + " is not found.");
+      return;
+    }
+    var isAnimatableBySpec =
+      animatableDataTypeListBySpec.includes(datatypeOrTestcase);
+    if (isAnimatableBySpec) {
+      currentAnimatableDataType = datatypeOrTestcase;
+    }
+    var isRoot = !originalDataType;
+    if (isRoot) {
+      originalDataType = datatypeOrTestcase;
+    }
+    pushTestcase(testcases, variable.testcases, originalDataType,
+                 animatableDataTypeListBySpec, currentAnimatableDataType);
+    if (isRoot) {
+      originalDataType = null;
+    }
+    if (isAnimatableBySpec) {
+      currentAnimatableDataType = null;
+    }
   });
 }
 
-function build() {
-  Object.keys(CSSProperties).forEach(function (propertyName) {
-    buildOne(propertyName, CSSProperties[propertyName]);
-  });
-}
+function toUI(propertyName, testcase, result) {
+  var resultType =
+    result.from != result.to
+    ? result.half != result.to
+    ? "animated"
+    : "discrete"
+    : "ignored"
 
-document.addEventListener("DOMContentLoaded", function() {
   var resultsElement = document.getElementById("results");
-  var resultElement =
-    appendElement("div", ["result"], "", resultsElement);
+  var resultElement = appendElement("li", resultsElement, null, ["result"]);
+  var dlElement = appendElement("dl", resultElement, null);
 
-  appendElement("div", ["cell", "property"], "CSS property and test values",
-                resultElement);
-  appendElement("div", ["cell", "value"], "0%", resultElement);
-  appendElement("div", ["cell", "value"], "50%", resultElement);
-  appendElement("div", ["cell", "value"], "100%", resultElement);
+  var specLink = CSSProperties[propertyName]["links"][0];
 
-  build();
-});
+  // Animatable column
+  var animatableElement = appendElement("dd", dlElement, null, ["animatable"]);
+  if (testcase.animatableDataType) {
+    var animtypeLink =
+      CSSDataTypes[testcase.animatableDataType]["animtype-link"];
+    if (animtypeLink.length != 0) {
+      appendElement("a", animatableElement, testcase.animatableDataType,
+                    ["css-transition-spec", "link"], { "href": animtypeLink });
+    } else if (resultType == "ignored") {
+      appendElement("a", animatableElement, "animatable?",
+                    ["animatable-spec", "link"], { "href": specLink });
+    }
+  }
+
+  // Property column
+  var propertyElement = appendElement("dd", dlElement, null, ["property"]);
+  appendElement("a", propertyElement, propertyName,
+                ["spec"], { "href": specLink });
+
+  // Testcase column
+  var testcaseElement = appendElement("dd", dlElement, null, ["testcase"]);
+  var testdataElement = appendElement("div", testcaseElement);
+  testdataElement.innerHTML =
+    testcase.values[0] + "&rArr;" + testcase.values[1];
+
+  // Result columns
+  if (result.error) {
+    appendElement("dd", dlElement, result.error, ["error-result"]);
+    resultElement.classList.add("error");
+  } else {
+    // 0% column
+    appendElement("dd", dlElement, result.from, ["result0"]);
+    // 5% column
+    appendElement("dd", dlElement, result.half, ["result50"]);
+    // 100% column
+    appendElement("dd", dlElement, result.to, ["result100"]);
+    resultElement.classList.add(resultType);
+  }
+}
+
+function appendElement(tag, parent, content, classes, attributes) {
+  var element = document.createElement(tag);
+  if (classes) {
+    classes.forEach(function(clazz) {
+      element.classList.add(clazz);
+    });
+  }
+  if (attributes) {
+    Object.keys(attributes).forEach(function(key) {
+      element.setAttribute(key, attributes[key]);
+    });
+  }
+  if (typeof content === "undefined") {
+    element.textContent = "undefined";
+  } else if (content == null) {
+  } else if (content.length == 0) {
+    element.innerHTML = "&nbsp;";
+  } else {
+    element.textContent = content;
+  }
+  parent.appendChild(element);
+  return element
+}
+
+function propertyToIDL(property) {
+  if (property == 'float') {
+    return 'cssFloat';
+  }
+  // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
+  return property.replace(/-([a-z])/gi, function(str, group) {
+    return group.toUpperCase();
+  });
+}

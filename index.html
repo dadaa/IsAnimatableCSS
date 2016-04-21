@@ -10,16 +10,32 @@
     <title>Is Animatable CSS?</title>
   </head>
   <body role="document">
-    <header>
-      <div id="full-animation">full animation</div>
-      <div id="discrete-animation">discrete animation</div>
-      <div id="animatable-animation">defined as animatable in <a
-          href="https://drafts.csswg.org/css-transitions/#interpolated-types">CSS
-          Transitions</a></div>
-    </header>
     <main>
-      <div id="results">
-      </div>
+      <dl id="result-header">
+        <dd class="animatable"></dd>
+        <dd class="property">Property</dd>
+        <dd class="testcase">Testcase</dd>
+        <dd class="result0">0%</dd>
+        <dd class="result50">50%</dd>
+        <dd class="result100">100%</dd>
+      </dl>
+      <ul id="results">
+        <!--
+        <li id="result">
+          <dl>
+            <dd class="animatable">
+              <a href="#" class="animatable-spec link">anim spec</a>
+              <a href="#" class="css-transition-spec link">css transition</a>
+            </dd>
+            <dd class="property"><a href="#" class="spec">background-size</a></dd>
+            <dd class="testcase"><div>10px, 50px</div><a href="#" class="datatype link">datatype</a></dd>
+            <dd class="result0">10px</dd>
+            <dd class="result50">30px</dd>
+            <dd class="result100">50px</dd>
+          </dl>
+        </li>
+        -->
+      </ul>
     </main>
   </body>
 </html>

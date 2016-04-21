@@ -177,7 +177,7 @@ var CSSDataTypes =
   },
   "<integer>": {
     "link": "https://www.w3.org/TR/css3-values/#integers",
-    "animtype-link": "",
+    "animtype-link": "https://drafts.csswg.org/css-transitions/#animtype-integer",
     "testcases": [[1, 5]]
   },
   "<image>": {
@@ -197,7 +197,7 @@ var CSSDataTypes =
   },
   "<knockout-offset>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-markers-20150409/#DataTypeKnockoutOffset",
-    "animtype-link": "https://www.w3.org/TR/2015/WD-svg-markers-20150409/#DataTypeKnockoutOffset",
+    "animtype-link": "",
     "testcases": ["<length>", "<percentage>", "<number>"]
   },
   "<length>": {
@@ -255,7 +255,7 @@ var CSSDataTypes =
     "animtype-link": "",
     "testcases": [["left", "right"], "<percentage>", "<length>"]
   },
-  "<rect()>": {
+  "<rectangle>": {
     "link": "https://www.w3.org/TR/2014/CR-css-masking-1-20140826/#funcdef-rect",
     "animtype-link": "https://drafts.csswg.org/css-transitions-1/#animtype-rect",
     "testcases":
@@ -278,7 +278,7 @@ var CSSDataTypes =
   },
   "<shadow>": {
     "link": "https://www.w3.org/TR/2014/CR-css3-background-20140909/#ltshadowgt",
-    "animtype-link": "",
+    "animtype-link": "https://drafts.csswg.org/css-transitions/#animtype-shadow-list",
     "testcases": [["10px 10px", "50px 50px"]] //<length> <length>
   },
   "<single-animation-direction>": {
@@ -324,22 +324,22 @@ var CSSDataTypes =
   },
   "<stroke-alignment>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeAlignmentProperty",
-    "animtype-link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeAlignmentProperty",
+    "animtype-link": "",
     "testcases": [["center", "inner"]]
   },
   "<stroke-dashadjust>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeDashadjustProperty",
-    "animtype-link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeDashadjustProperty",
+    "animtype-link": "",
     "testcases": [["stretch", "compress"]]
   },
   "<stroke-linecap>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeLinecapProperty",
-    "animtype-link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeLinecapProperty",
+    "animtype-link": "",
     "testcases": [["butt", "round"]]
   },
   "<stroke-linejoin>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeLinejoinProperty",
-    "animtype-link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeLinejoinProperty",
+    "animtype-link": "",
     "testcases": [["miter", "miter-clip"]]
   },
   "<time>": {
@@ -354,7 +354,7 @@ var CSSDataTypes =
   },
   "<transform-function>": {
     "link": "https://www.w3.org/TR/2013/WD-css-transforms-1-20131126/#typedef-transform-function",
-    "animtype-link": "https://www.w3.org/TR/2013/WD-css-transforms-1-20131126/#typedef-transform-function",
+    "animtype-link": "",
     "testcases": [["translate(10px 10px)", "translate(50px 50px)"]]
   },
   "<transition-timing-function>": {
@@ -369,7 +369,7 @@ var CSSDataTypes =
   },
   "<visibility>": {
     "link": "https://www.w3.org/TR/2007/WD-css3-box-20070809/#visibility",
-    "animtype-link": "https://www.w3.org/TR/2007/WD-css3-box-20070809/#visibility",
+    "animtype-link": "https://drafts.csswg.org/css-transitions/#animtype-visibility",
     "testcases": [["visible", "hidden"]]
   },
   "<width>": {
