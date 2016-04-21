@@ -1,6 +1,5 @@
 var CSSDataTypes =
 {
-
   "<absolute-size>": {
     "link": "https://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#absolute-size-value",
     "animtype-link": "",
@@ -236,13 +235,11 @@ var CSSDataTypes =
     "animtype-link": "",
     "testcases": [["auto 90deg", "reverse 45deg"]]
   },
-
   "<number>": {
     "link": "https://www.w3.org/TR/css3-values/#numbers",
     "animtype-link": "https://drafts.csswg.org/css-transitions/#animtype-number",
     "testcases": [[1, 5]]
   },
-
   "<paint>": {
     "link": "https://svgwg.org/svg2-draft/painting.html#SpecifyingPaint",
     "animtype-link": "https://svgwg.org/svg2-draft/painting.html#SpecifyingPaint",
