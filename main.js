@@ -67,18 +67,18 @@ function pushTestcase(testcases, datatypeOrTestcases,
     if (Array.isArray(datatypeOrTestcase)) {
       testcases.push({ "animatablePropertyName": animatablePropertyName,
                        "values": datatypeOrTestcase });
-    } else {
-      var variable = CSSDataTypes[datatypeOrTestcase];
-      if (!variable) {
-        console.error(datatypeOrTestcase + " is not found.");
-      } else {
-        if (animatableListBySpec.includes(datatypeOrTestcase)) {
-          animatablePropertyName = datatypeOrTestcase;
-        }
-        pushTestcase(testcases, variable.testcases,
-                     animatableListBySpec, animatablePropertyName);
-      }
+      return; // return in forEach is same as continue in normal loop
     }
+    var variable = CSSDataTypes[datatypeOrTestcase];
+    if (!variable) {
+      console.error(datatypeOrTestcase + " is not found.");
+      return;
+    }
+    if (animatableListBySpec.includes(datatypeOrTestcase)) {
+      animatablePropertyName = datatypeOrTestcase;
+    }
+    pushTestcase(testcases, variable.testcases,
+                 animatableListBySpec, animatablePropertyName);
   });
 }
 
