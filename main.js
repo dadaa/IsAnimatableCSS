@@ -1,41 +1,3 @@
-/*
-function execute(property, from, to) {
-  if (typeof property === 'undefined') {
-    console.error("property is undefined");
-    return;
-  }
-  if (typeof from === 'undefined') {
-    console.error("from is undefined");
-    return;
-  }
-  if (typeof to === 'undefined') {
-    console.error("to is undefined");
-    return;
-  }
-
-  var target = document.createElement("div");
-  target.id = "target";
-  document.body.appendChild(target);
-  var keyframe = {};
-  keyframe[propertyToIDL(property)] = [from, to];
-  var animation;
-  try {
-    animation = target.animate(keyframe,
-                               { duration: 1000, fill: "both" });
-  } catch (e) {
-    return { error: e.name + ":" + e.message};
-  }
-
-  var fromResult = getComputedStyle(target)[property];
-  animation.currentTime = 500;
-  var halfResult = getComputedStyle(target)[property];
-  animation.currentTime = 1000;
-  var toResult = getComputedStyle(target)[property];
-
-  document.body.removeChild(target);
-  return { from: fromResult, half: halfResult, to: toResult };
-}
-*/
 function propertyToIDL(property) {
   if (property == 'float') {
     return 'cssFloat';
@@ -149,7 +111,7 @@ function animate(propertyName, values) {
   return { from: fromResult, half: halfResult, to: toResult };
 }
 
-function execute(propertyName, propertyData) {
+function buildOne(propertyName, propertyData) {
   var testcases = getTestcases(propertyData["test-datatypes"],
                                propertyData["animatables"]);
   testcases.forEach(function(testcase) {
@@ -160,8 +122,7 @@ function execute(propertyName, propertyData) {
 
 function build() {
   Object.keys(CSSProperties).forEach(function (propertyName) {
-    var result = execute(propertyName, CSSProperties[propertyName]);
-    //toUI(testcase, result);
+    buildOne(propertyName, CSSProperties[propertyName]);
   });
 }
 
