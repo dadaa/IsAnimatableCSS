@@ -17,11 +17,11 @@ function enableAnimationWith(button) {
   var buttonWebAnimation = document.getElementById("web-animation");
   var buttonCSSTransition = document.getElementById("css-transition");
   if (button == buttonWebAnimation) {
-    window.createAnimation = createWebAnimation;
+    window.animate = animateWebAnimation;
     buttonWebAnimation.classList.add("on");
     buttonCSSTransition.classList.remove("on");
   } else {
-    window.createAnimation = createCSSTransition;
+    window.animate = animateCSSTransition;
     buttonCSSTransition.classList.add("on");
     buttonWebAnimation.classList.remove("on");
   }
@@ -43,46 +43,58 @@ function buildOne(propertyName, propertyData) {
   animatables = animatables ? animatables : [];
   var testcases = getTestcases(propertyData["test-datatypes"], animatables);
   testcases.forEach(function(testcase) {
-    var result = animate(propertyName, testcase.values);
+    var result = execute(propertyName, testcase.values);
     toUI(propertyName, testcase, result);
   });
 }
 
-function createWebAnimation(target, propertyName, values) {
+function animateWebAnimation(target, propertyName, values) {
   var keyframe = {};
   keyframe[propertyToIDL(propertyName)] = values;
-  return target.animate(keyframe, { duration: 1000, fill: "both" });
+  var animation = target.animate(keyframe, { duration: 1000, fill: "both" });
+
+  var fromResult = getComputedStyle(target)[propertyName];
+  animation.currentTime = 500;
+  var halfResult = getComputedStyle(target)[propertyName];
+  animation.currentTime = 1000;
+  var toResult = getComputedStyle(target)[propertyName];
+
+  return { from: fromResult, half: halfResult, to: toResult };
 }
 
-function createCSSTransition(target, propertyName, values) {
+function animateCSSTransition(target, propertyName, values) {
   target.style[propertyName] = values[0];
   // Flush the computed style
   // @see https://dxr.mozilla.org/mozilla-central/source/dom/animation/test/testcommon.js#150
   getComputedStyle(target)[propertyName];
-  var transition = propertyName + " 1s linear";
-  target.style.transition = transition;
+  target.style.transition = propertyName + " 1s linear";
   target.style[propertyName] = values[1];
+  var fromResult = getComputedStyle(target)[propertyName];
 
-  var animations = target.getAnimations();
-  // animations should be zero length if this property can't animate
-  return animations.length == 0 ? {} : animations[0];
+  target.style.transition = "";
+  target.style[propertyName] = values[0];
+  getComputedStyle(target)[propertyName]; // flush
+  target.style.transition = propertyName + " 1s -0.5s linear";
+  target.style[propertyName] = values[1];
+  var halfResult = getComputedStyle(target)[propertyName];
+
+  target.style.transition = "";
+  target.style[propertyName] = values[0];
+  getComputedStyle(target)[propertyName]; // flush
+  target.style.transition = propertyName + " 1s -1s linear";
+  target.style[propertyName] = values[1];
+  var toResult = getComputedStyle(target)[propertyName];
+
+  return { from: fromResult, half: halfResult, to: toResult };
 }
 
-function animate(propertyName, values) {
+function execute(propertyName, values) {
   var target = document.createElement("div");
   target.id = "target";
   document.body.appendChild(target);
 
   try {
-    var animation = createAnimation(target, propertyName, values);
-
-    var fromResult = getComputedStyle(target)[propertyName];
-    animation.currentTime = 500;
-    var halfResult = getComputedStyle(target)[propertyName];
-    animation.currentTime = 1000;
-    var toResult = getComputedStyle(target)[propertyName];
-
-    return { from: fromResult, half: halfResult, to: toResult };
+    return animate(target, propertyName, values);
   } catch (e) {
     return { error: e.name + ":" + e.message};
   } finally {
