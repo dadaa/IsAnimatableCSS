@@ -26,6 +26,7 @@ function enableAnimationWith(button) {
     buttonWebAnimation.classList.remove("on");
   }
   makeEmpty(document.getElementById("results"));
+  // return this thread to update ui immediately
   setTimeout(function() {
     build();
   }, 1);
