@@ -16,6 +16,15 @@ main {
   padding: 0;
 }
 
+#target {
+  /* Needed for z-index */
+  position: absolute;
+  /* Needed for border-width related properties */
+  border-style: solid;
+  /* Needed for column-rule-width */
+  column-rule-style: solid;
+}
+
 li:first-child dd {
   border-top-width: 1px;
 }
