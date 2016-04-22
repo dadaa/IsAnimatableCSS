@@ -96,20 +96,6 @@ function toUI(propertyName, testcase, result) {
 
   var specLink = CSSProperties[propertyName]["links"][0];
 
-  // Animatable column
-  var animatableElement = appendElement("dd", dlElement, null, ["animatable"]);
-  if (testcase.animatableDataType) {
-    var animtypeLink =
-      CSSDataTypes[testcase.animatableDataType]["animtype-link"];
-    if (animtypeLink.length != 0) {
-      appendElement("a", animatableElement, testcase.animatableDataType,
-                    ["css-transition-spec", "link"], { "href": animtypeLink });
-    } else if (resultType == "ignored") {
-      appendElement("a", animatableElement, "animatable?",
-                    ["animatable-spec", "link"], { "href": specLink });
-    }
-  }
-
   // Property column
   var propertyElement = appendElement("dd", dlElement, null, ["property"]);
   appendElement("a", propertyElement, propertyName,
@@ -120,6 +106,13 @@ function toUI(propertyName, testcase, result) {
   var testdataElement = appendElement("div", testcaseElement);
   testdataElement.innerHTML =
     testcase.values[0] + "&rArr;" + testcase.values[1];
+  if (testcase.animatableDataType) {
+    var animtypeLink =
+      CSSDataTypes[testcase.animatableDataType]["animtype-link"];
+    var divElement = appendElement("div", testdataElement, null);
+    appendElement("a", divElement, testcase.animatableDataType,
+                  ["css-transition-spec", "link"], { "href": animtypeLink });
+  }
 
   // Result columns
   if (result.error) {

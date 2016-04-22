@@ -1,91 +1,3 @@
-/*
-#target {
-  width: 100px;
-}
-
-header {
-  width: 400px;
-  font-weight: 100;
-}
-
-header > div {
-  text-align: center;
-  padding: 0.5em 0 0.5em 0;
-}
-
-#animatable-animation {
-  background-color: lightgrey;
-}
-
-main {
-  margin-top: 32px;
-}
-
-#results {
-  display: inline-block;
-}
-
-.result {
-  font-weight: 100;
-  border-bottom: 1px solid white;
-  background-color: #ddd;
-}
-
-.result:nth-child(even) {
-  background-color: #eee;
-}
-
-#discrete-animation,
-.result.discrete {
-  background: linear-gradient(to bottom, #fff5d3 0%,#ffeeba 100%);
-}
-
-#full-animation,
-.result.animated {
-  background: linear-gradient(to bottom, #c9fcd4 0%,#aef9bd 100%);
-}
-
-.result:first-child {
-  background-color: pink;
-  font-weight: bold;
-}
-
-.result.error {
-  background-color: red;
-}
-
-.cell {
-  display: inline-block;
-  text-align: center;
-  border-left: 1px solid white;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-.cell:first-child {
-  border: none;
-}
-
-.cell.property {
-  width: 400px;
-}
-
-#animatable-animation:before,
-.cell.property.animatable:before {
-  content: "✔️";
-  color: green;
-  margin-right: 0.3em;
-}
-
-.cell.value {
-  width: 150px;
-}
-
-.cell.error {
-  width: 450px;
-}
-
-*/
 main {
   margin: 0 auto;
 }
@@ -119,17 +31,6 @@ dd:last-child {
   border-right-width: 1px;
 }
 
-.result .animatable {
-  padding-top: 0;
-  text-align: right;
-  vertical-align: top;
-}
-
-.animatable {
-  width: 9em;
-  border: none;
-}
-
 .property {
   width: 22em;
 }
@@ -157,13 +58,13 @@ dd:last-child {
 
 .animatable-spec {
   color: white;
-  background: linear-gradient(to bottom, #1e90ff 0%,#1369a8 100%);
+  background: linear-gradient(to bottom, #ff8800 0%,#d55b09 100%);
 }
 
 .css-transition-spec {
   margin-bottom: 1px;
   color: white;
-  background: linear-gradient(to bottom, #ff8800 0%,#d55b09 100%);
+  background: linear-gradient(to bottom, #fa8072 0%,#e65443 100%);
 }
 
 .datatype {
@@ -176,22 +77,22 @@ dd:last-child {
   color: black;
 }
 
-.result:nth-child(odd) dd:nth-child(n + 2) {
+.result:nth-child(odd) dd {
   background: linear-gradient(to bottom, #eee 0%,#e0e0e0 100%);
 }
 
-.result:nth-child(even) dd:nth-child(n + 2) {
+.result:nth-child(even) dd {
   background: linear-gradient(to bottom, #ccc 0%,#c0c0c0 100%);
 }
 
-.result.animated dd:nth-child(n + 2) {
+.result.animated dd {
   background: linear-gradient(to bottom, #c9fcd4 0%,#aef9bd 100%);
 }
 
-.result.discrete dd:nth-child(n + 2) {
+.result.discrete dd {
   background: linear-gradient(to bottom, #fff5d3 0%,#ffeeba 100%);
 }
 
-.result.error dd:nth-child(n + 2) {
+.result.error dd {
   background: linear-gradient(to bottom, #ff3333 0%,#ff1111 100%);
 }
