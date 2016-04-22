@@ -20,8 +20,8 @@ li:first-child dd {
   border-top-width: 1px;
 }
 
-.dl {
-  word-wrap: normal;
+dl {
+  margin: 0;
 }
 
 dd {
