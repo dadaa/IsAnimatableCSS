@@ -29,6 +29,7 @@ function animate(propertyName, values) {
     animation = target.animate(keyframe,
                                { duration: 1000, fill: "both" });
   } catch (e) {
+    document.body.removeChild(target);
     return { error: e.name + ":" + e.message};
   }
   var fromResult = getComputedStyle(target)[propertyName];
