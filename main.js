@@ -1,6 +1,35 @@
 document.addEventListener("DOMContentLoaded", function() {
-  build();
+  setupInteractiveUI();
+  enableAnimationWith(document.querySelector(".on"));
 });
+
+function setupInteractiveUI() {
+  var buttonListener = function(e) {
+    enableAnimationWith(e.target);
+  };
+  document.getElementById("web-animation").addEventListener("click",
+                                                            buttonListener);
+  document.getElementById("css-transition").addEventListener("click",
+                                                            buttonListener);
+}
+
+function enableAnimationWith(button) {
+  var buttonWebAnimation = document.getElementById("web-animation");
+  var buttonCSSTransition = document.getElementById("css-transition");
+  if (button == buttonWebAnimation) {
+    window.createAnimation = createWebAnimation;
+    buttonWebAnimation.classList.add("on");
+    buttonCSSTransition.classList.remove("on");
+  } else {
+    window.createAnimation = createCSSTransition;
+    buttonCSSTransition.classList.add("on");
+    buttonWebAnimation.classList.remove("on");
+  }
+  makeEmpty(document.getElementById("results"));
+  setTimeout(function() {
+    build();
+  }, 1);
+}
 
 function build() {
   Object.keys(CSSProperties).forEach(function (propertyName) {
@@ -18,28 +47,46 @@ function buildOne(propertyName, propertyData) {
   });
 }
 
+function createWebAnimation(target, propertyName, values) {
+  var keyframe = {};
+  keyframe[propertyToIDL(propertyName)] = values;
+  return target.animate(keyframe, { duration: 1000, fill: "both" });
+}
+
+function createCSSTransition(target, propertyName, values) {
+  target.style[propertyName] = values[0];
+  // Flush the computed style
+  // @see https://dxr.mozilla.org/mozilla-central/source/dom/animation/test/testcommon.js#150
+  getComputedStyle(target)[propertyName];
+  var transition = propertyName + " 1s linear";
+  target.style.transition = transition;
+  target.style[propertyName] = values[1];
+
+  var animations = target.getAnimations();
+  // animations should be zero length if this property can't animate
+  return animations.length == 0 ? {} : animations[0];
+}
+
 function animate(propertyName, values) {
   var target = document.createElement("div");
   target.id = "target";
   document.body.appendChild(target);
-  var keyframe = {};
-  keyframe[propertyToIDL(propertyName)] = values;
-  var animation;
-  try {
-    animation = target.animate(keyframe,
-                               { duration: 1000, fill: "both" });
-  } catch (e) {
-    document.body.removeChild(target);
-    return { error: e.name + ":" + e.message};
-  }
-  var fromResult = getComputedStyle(target)[propertyName];
-  animation.currentTime = 500;
-  var halfResult = getComputedStyle(target)[propertyName];
-  animation.currentTime = 1000;
-  var toResult = getComputedStyle(target)[propertyName];
 
-  document.body.removeChild(target);
-  return { from: fromResult, half: halfResult, to: toResult };
+  try {
+    var animation = createAnimation(target, propertyName, values);
+
+    var fromResult = getComputedStyle(target)[propertyName];
+    animation.currentTime = 500;
+    var halfResult = getComputedStyle(target)[propertyName];
+    animation.currentTime = 1000;
+    var toResult = getComputedStyle(target)[propertyName];
+
+    return { from: fromResult, half: halfResult, to: toResult };
+  } catch (e) {
+    return { error: e.name + ":" + e.message};
+  } finally {
+    document.body.removeChild(target);
+  }
 }
 
 function getTestcases(datatypes, animatableDataTypeListBySpec) {
@@ -162,4 +209,10 @@ function propertyToIDL(property) {
   return property.replace(/-([a-z])/gi, function(str, group) {
     return group.toUpperCase();
   });
+}
+
+function makeEmpty(element) {
+  while(element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 }

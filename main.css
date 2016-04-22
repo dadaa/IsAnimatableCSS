@@ -33,6 +33,7 @@ dd {
   border-style: solid;
   border-width: 0 0 1px 1px;
   padding: 0.5em 0 0.5em 0;
+  word-break: break-all;
 }
 
 dd:last-child {
@@ -99,13 +100,17 @@ dd:last-child {
   background: linear-gradient(to bottom, #ff3333 0%,#ff1111 100%);
 }
 
-#regend {
+#side-panel {
   float: left;
   margin-left: 2em;
+}
+
+#regend {
   width: 14em;
   padding: 0.5em;
   border: 1px solid black;
   text-align: center;
+  margin-bottom: 1em;
 }
 
 #regend dd {
@@ -125,4 +130,21 @@ dd:last-child {
 
 #regend a {
   color: black;
+}
+
+#animation-switcher {
+  width: 14em;
+  padding: 0.5em;
+  text-align: center;
+}
+
+#animation-switcher div {
+  border: 1px solid black;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+}
+
+#animation-switcher div.on {
+  background: linear-gradient(to bottom, #ff8700 0%,#e17b08 100%);
+  color: white;
 }
