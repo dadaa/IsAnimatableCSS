@@ -73,6 +73,9 @@ function animateWebAnimation(target, propertyName, values) {
 }
 
 function animateCSSTransition(target, propertyName, values) {
+  if (propertyName.match(/^transition-/)) {
+    return { from: "-", half: "-", to: "-" };
+  }
   target.style[propertyName] = values[0];
   // Flush the computed style
   // @see https://dxr.mozilla.org/mozilla-central/source/dom/animation/test/testcommon.js#150
@@ -99,6 +102,10 @@ function animateCSSTransition(target, propertyName, values) {
 }
 
 function animateCSSAnimation(target, propertyName, values) {
+  if (propertyName.match(/^animation-/)) {
+    return { from: "-", half: "-", to: "-" };
+  }
+
   var keyframes = "@keyframes test {"
                   + "from {"+ propertyName +": " + values[0] + " }"
                   + "to {"+ propertyName +": " + values[1] + " }}";
