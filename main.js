@@ -1,29 +1,39 @@
 document.addEventListener("DOMContentLoaded", function() {
   setupInteractiveUI();
-  enableAnimationWith(document.querySelector(".on"));
+  buildAnimation(document.querySelector(".on"));
 });
 
 function setupInteractiveUI() {
   var buttonListener = function(e) {
-    enableAnimationWith(e.target);
+    buildAnimation(e.target);
   };
   document.getElementById("web-animation").addEventListener("click",
                                                             buttonListener);
   document.getElementById("css-transition").addEventListener("click",
+                                                             buttonListener);
+  document.getElementById("css-animation").addEventListener("click",
                                                             buttonListener);
 }
 
-function enableAnimationWith(button) {
+function buildAnimation(button) {
   var buttonWebAnimation = document.getElementById("web-animation");
   var buttonCSSTransition = document.getElementById("css-transition");
+  var buttonCSSAnimation = document.getElementById("css-animation");
   if (button == buttonWebAnimation) {
     window.animate = animateWebAnimation;
     buttonWebAnimation.classList.add("on");
     buttonCSSTransition.classList.remove("on");
-  } else {
+    buttonCSSAnimation.classList.remove("on");
+  } else if (button == buttonCSSTransition) {
     window.animate = animateCSSTransition;
-    buttonCSSTransition.classList.add("on");
     buttonWebAnimation.classList.remove("on");
+    buttonCSSTransition.classList.add("on");
+    buttonCSSAnimation.classList.remove("on");
+  } else {
+    window.animate = animateCSSAnimation;
+    buttonWebAnimation.classList.remove("on");
+    buttonCSSTransition.classList.remove("on");
+    buttonCSSAnimation.classList.add("on");
   }
   makeEmpty(document.getElementById("results"));
   // return this thread to update ui immediately
@@ -88,6 +98,34 @@ function animateCSSTransition(target, propertyName, values) {
   return { from: fromResult, half: halfResult, to: toResult };
 }
 
+function animateCSSAnimation(target, propertyName, values) {
+  var keyframes = "@keyframes test {"
+                  + "from {"+ propertyName +": " + values[0] + " }"
+                  + "to {"+ propertyName +": " + values[1] + " }}";
+
+  document.styleSheets[0].insertRule(keyframes, 0);
+
+  target.style[propertyName] = values[0];
+  getComputedStyle(target)[propertyName]; // flush
+  target.style.animation = "1s linear 0s both test";
+  var fromResult = getComputedStyle(target)[propertyName];
+
+  target.style.animation = "";
+  target.style[propertyName] = values[0];
+  getComputedStyle(target)[propertyName]; // flush
+  target.style.animation = "1s linear -0.5s both test";
+  var halfResult = getComputedStyle(target)[propertyName];
+
+  target.style.animation = "";
+  target.style[propertyName] = 1;
+  getComputedStyle(target)[propertyName]; // flush
+  target.style.animation = "1s linear -1s both test";
+  var toResult = getComputedStyle(target)[propertyName];
+
+  document.styleSheets[0].deleteRule(0);
+  return { from: fromResult, half: halfResult, to: toResult };
+}
+
 function execute(propertyName, values) {
   var target = document.createElement("div");
   target.id = "target";
@@ -145,11 +183,13 @@ function pushTestcase(testcases, datatypeOrTestcases, originalDataType,
 
 function toUI(propertyName, testcase, result) {
   var resultType =
-    result.from != result.to
+    result.from != result.half
     ? result.half != result.to
     ? "animated"
     : "discrete"
-    : "ignored"
+    : result.half != result.to
+    ? "discrete"
+    : "ignored";
 
   var resultsElement = document.getElementById("results");
   var resultElement = appendElement("li", resultsElement, null, ["result"]);
