@@ -155,7 +155,7 @@ function toUI(propertyName, testcase, result) {
   var resultElement = appendElement("li", resultsElement, null, ["result"]);
   var dlElement = appendElement("dl", resultElement, null);
 
-  var specLink = CSSProperties[propertyName]["links"][0];
+  var specLink = CSSProperties[propertyName]["link"];
 
   // Property column
   var propertyElement = appendElement("dd", dlElement, null, ["property"]);
