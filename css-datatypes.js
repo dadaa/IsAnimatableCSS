@@ -306,11 +306,6 @@ var CSSDataTypes =
     "animtype-link": "",
     "testcases": [["running", "paused"]]
   },
-  "<single-transition>": {
-    "link": "https://www.w3.org/TR/2013/WD-css3-transitions-20131119/#single-transition",
-    "animtype-link": "",
-    "testcases": [["color 1s linear 1", "color 5s linear 5"]]
-  },
   "<single-transition-property>": {
     "link": "https://www.w3.org/TR/2013/WD-css3-transitions-20131119/#single-transition-property",
     "animtype-link": "",

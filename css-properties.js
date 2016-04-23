@@ -1651,11 +1651,6 @@ var CSSProperties =
     "test-datatypes": [["flat", "preserve-3d"]],
     "animatables": []
   },
-  "transition": {
-    "link": "http://dev.w3.org/csswg/css-transitions/#propdef-transition",
-    "test-datatypes": ["<single-transition>"],
-    "animatables": []
-  },
   "transition-delay": {
     "link": "http://dev.w3.org/csswg/css-transitions/#propdef-transition-delay",
     "test-datatypes": ["<time>"],
