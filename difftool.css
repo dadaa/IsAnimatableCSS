@@ -1,0 +1,177 @@
+body {
+  font-family: monospace;
+}
+
+main {
+  display: inline-block;
+  float: left;
+}
+
+#result-header {
+  margin-top: 0;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+}
+
+li:first-child dd {
+  border-top-width: 1px;
+}
+
+main dl {
+  margin: 0;
+}
+
+main dd {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding-right: 1px;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px 1px;
+  padding: 0.5em 0 0.5em 0;
+  word-break: break-all;
+}
+
+main dd:last-child {
+  border-right-width: 1px;
+}
+
+.property {
+  width: 22em;
+}
+
+.spec {
+  text-decoration: none;
+  color: black;
+}
+
+.testcase {
+  width: 20em;
+}
+
+.browser {
+  width: 12em;
+}
+
+.result0,
+.result50,
+.result100 {
+  width: 10em;
+}
+
+#equal-value,
+.result0.equal,
+.result50.equal,
+.result100.equal {
+  background: linear-gradient(to bottom, #acf3ff 0%,#82d1de 100%) !important;
+}
+
+.error-result {
+  width: calc(30em + 2px); /* 2px is border of other one */
+}
+
+.link {
+  display: inline-block;
+  border: 1px solid black;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+#legend,
+.result:nth-child(odd) dd {
+  background: linear-gradient(to bottom, #eee 0%,#e0e0e0 100%);
+}
+
+.result:nth-child(even) dd {
+  background: linear-gradient(to bottom, #ccc 0%,#c0c0c0 100%);
+}
+
+.result dl:nth-child(n+2) .empty {
+  background: white;
+  border-color: white;
+}
+
+.result dl:last-child .empty {
+  border-bottom: 1px solid black;
+}
+
+.result dl:nth-child(n+2) dd {
+  border-top: 0;
+}
+
+#full-animation,
+.browser.animated {
+  background: linear-gradient(to bottom, #c9fcd4 0%,#aef9bd 100%) !important;
+}
+
+#discrete-animation,
+.browser.discrete {
+  background: linear-gradient(to bottom, #fff5d3 0%,#ffeeba 100%) !important;
+}
+
+.browser.error {
+  background: linear-gradient(to bottom, #ff3333 0%,#ff1111 100%) !important;
+}
+
+#css-transition-animatable,
+.css-transition-spec {
+  margin-bottom: 1px;
+  color: white;
+  background: linear-gradient(to bottom, #fa8072 0%,#e65443 100%);
+}
+
+#side-panel {
+  float: left;
+  margin-left: 2em;
+}
+
+#side-panel a {
+  color: black;
+}
+
+#legend {
+  width: 14em;
+  padding: 0.5em;
+  border: 1px solid black;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#legend dd {
+  display: inline-block;
+  width: 14em;
+  border: 1px solid black;
+  margin: 0.5em 0 0 0;
+  padding: 0.5em 0;
+}
+
+#legend #css-transition-animatable,
+#legend #full-animation {
+  margin-top: 0;
+}
+
+#json-controller {
+  text-align: center;
+  width: 14em;
+  padding: 0 0.5em 0.5em 0.5em;
+}
+
+#json-controller a {
+  word-break: break-all;
+}
+
+#append-json {
+  width: 14em;
+  display: block;
+  color: black;
+  text-decoration: none;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid black;
+  padding: 0.5em 0 0.5em 0;
+  cursor: pointer;
+}
