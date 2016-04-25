@@ -33,18 +33,20 @@
       </ul>
     </main>
     <section id="side-panel">
-      <dl id="regend">
-        <dd class="full-animation">full animation</dd>
-        <dd class="discrete-animation">discrete animation</dd>
+      <dl id="legend">
+        <dd id="full-animation">full animation</dd>
+        <dd id="discrete-animation">discrete animation</dd>
         <hr/>
-        <dd class="css-transition-animatable">&lt;animatable value&gt;</dd>
+        <dd id="css-transition-animatable">&lt;animatable value&gt;</dd>
         <a href="https://drafts.csswg.org/css-transitions/#interpolated-types">by CSS Transition Spec</a>
       </dl>
       <div id="animation-switcher">
+        <label>which animation?</label>
         <div id="web-animation" class="on" title="switch to Web Animation">Web Animation</div>
         <div id="css-transition" title="switch to CSS Transition">CSS Transition</div>
         <div id="css-animation" title="switch to CSS Animation">CSS Animation</div>
       </div>
+      <div id="result-as-json" title="Get this result as JSON">Get result as JSON</div>
     </section>
   </body>
 </html>

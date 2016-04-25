@@ -13,6 +13,8 @@ function setupInteractiveUI() {
                                                              buttonListener);
   document.getElementById("css-animation").addEventListener("click",
                                                             buttonListener);
+  document.getElementById("result-as-json").addEventListener("click",
+                                                             downloadJSON);
 }
 
 function buildAnimation(button) {
@@ -212,7 +214,7 @@ function toUI(propertyName, testcase, result) {
   if (testcase.animatableDataType) {
     var animtypeLink =
       CSSDataTypes[testcase.animatableDataType]["animtype-link"];
-    var divElement = appendElement("div", testdataElement, null);
+    var divElement = appendElement("div", testcaseElement, null);
     appendElement("a", divElement, testcase.animatableDataType,
                   ["css-transition-spec", "link"], { "href": animtypeLink });
   }
@@ -270,4 +272,81 @@ function makeEmpty(element) {
   while(element.firstChild) {
     element.removeChild(element.firstChild);
   }
+}
+
+function downloadJSON() {
+  var downloadAnchor = document.createElement("a");
+
+  var browserIdentity = getBrowserIdentity();
+  var animationType = getAnimationType();
+
+  var content = { browser: browserIdentity, animationType: animationType };
+  var results = {};
+  var resultElements = document.querySelectorAll(".result");
+  for (var i = 0, n = resultElements.length; i < n; i++) {
+    var resultElement = resultElements.item(i);
+
+    var property = {};
+    var propertyElement = resultElement.querySelector(".property a");
+    var propertyName = propertyElement.textContent;
+    property.link = propertyElement.href;
+
+    var testcaseElement = resultElement.querySelector(".testcase");
+    var testcase = testcaseElement.querySelector("div:first-child")
+                   .textContent.split("⇒");
+    testcase[0] = toJSONValue(testcase[0]);
+    testcase[1] = toJSONValue(testcase[1]);
+    property.testcase = testcase;
+
+    var cssTransitionElement = testcaseElement.querySelector("a");
+    if (cssTransitionElement) {
+      property["css-transition-datatype"] = cssTransitionElement.textContent;
+    }
+
+    var errorElement = resultElement.querySelector(".error-result");
+    if (errorElement) {
+      property.error = errorElement.textContent;
+    } else {
+      property.result0 =
+        toJSONValue(resultElement.querySelector(".result0").textContent);
+      property.result50 =
+        toJSONValue(resultElement.querySelector(".result50").textContent);
+      property.result100 =
+        toJSONValue(resultElement.querySelector(".result100").textContent);
+    }
+
+    results[propertyName] = property;
+  };
+  content.results = results;
+
+  var blob = new Blob([ JSON.stringify(content, null, "  ") ],
+                      { "type" : "application/json" });
+
+  downloadAnchor.download = browserIdentity + "-" + animationType + ".json";
+  downloadAnchor.href = window.URL.createObjectURL(blob);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  document.body.removeChild(downloadAnchor);
+}
+
+function toJSONValue(value) {
+  return !isNaN(value) ? Number(value)
+         : value == "undefined" ? undefined : value;
+}
+
+function getBrowserIdentity() {
+  var result = navigator.userAgent.match(/(Firefox|Chrome)\/(\S+)/);
+  if (result) {
+    return result[1] + result[2];
+  }
+  return "unknown";
+}
+
+function getAnimationType() {
+  var enabledElement = document.querySelector(".on");
+  return enabledElement.id == "web-animation"
+         ? "WebAnimation"
+         : enabledElement.id == "css-transition"
+         ? "CSSTransition"
+         : "CSSAnimation";
 }
