@@ -255,7 +255,7 @@ function appendElement(tag, parent, content, classes, attributes) {
     element.textContent = content;
   }
   parent.appendChild(element);
-  return element
+  return element;
 }
 
 function propertyToIDL(property) {
