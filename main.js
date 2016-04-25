@@ -287,9 +287,7 @@ function downloadJSON() {
     var resultElement = resultElements.item(i);
 
     var property = {};
-    var propertyElement = resultElement.querySelector(".property a");
-    var propertyName = propertyElement.textContent;
-    property.link = propertyElement.href;
+    var propertyName = resultElement.querySelector(".property a").textContent;
 
     var testcaseElement = resultElement.querySelector(".testcase");
     var testcase = testcaseElement.querySelector("div:first-child")
