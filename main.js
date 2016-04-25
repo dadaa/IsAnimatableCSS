@@ -280,7 +280,9 @@ function downloadJSON() {
   var browserIdentity = getBrowserIdentity();
   var animationType = getAnimationType();
 
-  var content = { browser: browserIdentity, animationType: animationType };
+  var content = { browserName: browserIdentity.browser,
+                  browserVersion: browserIdentity.version,
+                  animationType: animationType };
   var results = {};
   var resultElements = document.querySelectorAll(".result");
   for (var i = 0, n = resultElements.length; i < n; i++) {
@@ -320,7 +322,8 @@ function downloadJSON() {
   var blob = new Blob([ JSON.stringify(content, null, "  ") ],
                       { "type" : "application/json" });
 
-  downloadAnchor.download = browserIdentity + "-" + animationType + ".json";
+  downloadAnchor.download = browserIdentity.browser + browserIdentity.version +
+                            "-" + animationType + ".json";
   downloadAnchor.href = window.URL.createObjectURL(blob);
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
@@ -335,7 +338,7 @@ function toJSONValue(value) {
 function getBrowserIdentity() {
   var result = navigator.userAgent.match(/(Firefox|Chrome)\/(\S+)/);
   if (result) {
-    return result[1] + result[2];
+    return { browser: result[1], version: result[2] };
   }
   return "unknown";
 }
