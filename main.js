@@ -124,7 +124,7 @@ function animateCSSAnimation(target, propertyName, values) {
   var halfResult = getComputedStyle(target)[propertyName];
 
   target.style.animation = "";
-  target.style[propertyName] = 1;
+  target.style[propertyName] = values[0];
   getComputedStyle(target)[propertyName]; // flush
   target.style.animation = "1s linear -1s both test";
   var toResult = getComputedStyle(target)[propertyName];
