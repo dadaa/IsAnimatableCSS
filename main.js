@@ -110,26 +110,21 @@ function animateCSSAnimation(target, propertyName, values) {
                   + "from {"+ propertyName +": " + values[0] + " }"
                   + "to {"+ propertyName +": " + values[1] + " }}";
 
-  document.styleSheets[0].insertRule(keyframes, 0);
+  var stylesheet = document.styleSheets[document.styleSheets.length - 1];
+  stylesheet.insertRule(keyframes, stylesheet.length);
 
   target.style[propertyName] = values[0];
   getComputedStyle(target)[propertyName]; // flush
   target.style.animation = "1s linear 0s both test";
   var fromResult = getComputedStyle(target)[propertyName];
 
-  target.style.animation = "";
-  target.style[propertyName] = values[0];
-  getComputedStyle(target)[propertyName]; // flush
-  target.style.animation = "1s linear -0.5s both test";
+  target.style.animationDelay = "-0.5s";
   var halfResult = getComputedStyle(target)[propertyName];
 
-  target.style.animation = "";
-  target.style[propertyName] = values[0];
-  getComputedStyle(target)[propertyName]; // flush
-  target.style.animation = "1s linear -1s both test";
+  target.style.animationDelay = "-1s";
   var toResult = getComputedStyle(target)[propertyName];
 
-  document.styleSheets[0].deleteRule(0);
+  stylesheet.deleteRule(stylesheet.length - 1);
   return { from: fromResult, half: halfResult, to: toResult };
 }
 
