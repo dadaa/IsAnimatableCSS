@@ -132,16 +132,19 @@ function animateCSSAnimation(target, propertyName, values) {
 }
 
 function execute(propertyName, values) {
+  var targetContainer = document.createElement("div");
+  targetContainer.id = "target-container";
   var target = document.createElement("div");
   target.id = "target";
-  document.body.appendChild(target);
+  targetContainer.appendChild(target);
+  document.body.appendChild(targetContainer);
 
   try {
     return animate(target, propertyName, values);
   } catch (e) {
     return { error: e.name + ":" + e.message};
   } finally {
-    document.body.removeChild(target);
+    document.body.removeChild(targetContainer);
   }
 }
 
