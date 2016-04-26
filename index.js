@@ -56,7 +56,7 @@ function buildOne(propertyName, propertyData) {
   var testcases = getTestcases(propertyData["test-datatypes"], animatables);
   testcases.forEach(function(testcase) {
     var result = execute(propertyName, testcase.values);
-    toUI(propertyName, testcase, result);
+    updateUI(propertyName, testcase, result);
   });
 }
 
@@ -65,18 +65,18 @@ function animateWebAnimation(target, propertyName, values) {
   keyframe[propertyToIDL(propertyName)] = values;
   var animation = target.animate(keyframe, { duration: 1000, fill: "both" });
 
-  var fromResult = getComputedStyle(target)[propertyName];
+  var state0 = getComputedStyle(target)[propertyName];
   animation.currentTime = 500;
-  var halfResult = getComputedStyle(target)[propertyName];
+  var state50 = getComputedStyle(target)[propertyName];
   animation.currentTime = 1000;
-  var toResult = getComputedStyle(target)[propertyName];
+  var state100 = getComputedStyle(target)[propertyName];
 
-  return { from: fromResult, half: halfResult, to: toResult };
+  return { state0: state0, state50: state50, state100: state100 };
 }
 
 function animateCSSTransition(target, propertyName, values) {
   if (propertyName.match(/^transition-/)) {
-    return { from: "-", half: "-", to: "-" };
+    return { state0: "-", state50: "-", state100: "-" };
   }
   target.style[propertyName] = values[0];
   // Flush the computed style
@@ -84,28 +84,28 @@ function animateCSSTransition(target, propertyName, values) {
   getComputedStyle(target)[propertyName];
   target.style.transition = propertyName + " 1s linear";
   target.style[propertyName] = values[1];
-  var fromResult = getComputedStyle(target)[propertyName];
+  var state0 = getComputedStyle(target)[propertyName];
 
   target.style.transition = "";
   target.style[propertyName] = values[0];
   getComputedStyle(target)[propertyName]; // flush
   target.style.transition = propertyName + " 1s -0.5s linear";
   target.style[propertyName] = values[1];
-  var halfResult = getComputedStyle(target)[propertyName];
+  var state50 = getComputedStyle(target)[propertyName];
 
   target.style.transition = "";
   target.style[propertyName] = values[0];
   getComputedStyle(target)[propertyName]; // flush
   target.style.transition = propertyName + " 1s -1s linear";
   target.style[propertyName] = values[1];
-  var toResult = getComputedStyle(target)[propertyName];
+  var state100 = getComputedStyle(target)[propertyName];
 
-  return { from: fromResult, half: halfResult, to: toResult };
+  return { state0: state0, state50: state50, state100: state100 };
 }
 
 function animateCSSAnimation(target, propertyName, values) {
   if (propertyName.match(/^animation-/)) {
-    return { from: "-", half: "-", to: "-" };
+    return { state0: "-", state50: "-", state100: "-" };
   }
 
   var keyframes = "@keyframes test {"
@@ -118,16 +118,17 @@ function animateCSSAnimation(target, propertyName, values) {
   target.style[propertyName] = values[0];
   getComputedStyle(target)[propertyName]; // flush
   target.style.animation = "1s linear 0s both test";
-  var fromResult = getComputedStyle(target)[propertyName];
+  var state0 = getComputedStyle(target)[propertyName];
 
   target.style.animationDelay = "-0.5s";
-  var halfResult = getComputedStyle(target)[propertyName];
+  var state50 = getComputedStyle(target)[propertyName];
 
   target.style.animationDelay = "-1s";
-  var toResult = getComputedStyle(target)[propertyName];
+  var state100 = getComputedStyle(target)[propertyName];
 
   stylesheet.deleteRule(stylesheet.length - 1);
-  return { from: fromResult, half: halfResult, to: toResult };
+
+  return { state0: state0, state50: state50, state100: state100 };
 }
 
 function execute(propertyName, values) {
@@ -185,16 +186,7 @@ function pushTestcase(testcases, datatypeOrTestcases, originalDataType,
   });
 }
 
-function toUI(propertyName, testcase, result) {
-  var resultType =
-    result.from != result.half
-    ? result.half != result.to
-    ? "animated"
-    : "discrete"
-    : result.half != result.to
-    ? "discrete"
-    : "ignored";
-
+function updateUI(propertyName, testcase, result) {
   var resultsElement = document.getElementById("results");
   var resultElement = appendElement("li", resultsElement, null, ["result"]);
   var dlElement = appendElement("dl", resultElement, null);
@@ -208,9 +200,9 @@ function toUI(propertyName, testcase, result) {
 
   // Testcase column
   var testcaseElement = appendElement("dd", dlElement, null, ["testcase"]);
-  var testdataElement = appendElement("div", testcaseElement);
-  testdataElement.innerHTML =
-    testcase.values[0] + "&rArr;" + testcase.values[1];
+  var testdataElement =
+    appendElement("div", testcaseElement,
+                  testcase.values[0] + RIGHT_ARROW + testcase.values[1]);
   if (testcase.animatableDataType) {
     var animtypeLink =
       CSSDataTypes[testcase.animatableDataType]["animtype-link"];
@@ -225,42 +217,20 @@ function toUI(propertyName, testcase, result) {
     resultElement.classList.add("error");
   } else {
     // 0% column
-    appendElement("dd", dlElement, result.from, ["result0"]);
+    appendElement("dd", dlElement, result.state0, ["state0"]);
     // 5% column
-    appendElement("dd", dlElement, result.half, ["result50"]);
+    appendElement("dd", dlElement, result.state50, ["state50"]);
     // 100% column
-    appendElement("dd", dlElement, result.to, ["result100"]);
-    resultElement.classList.add(resultType);
+    appendElement("dd", dlElement, result.state100, ["state100"]);
+    var animatedType =
+      getAnimatedType(result.state0, result.state50, result.state100);
+    resultElement.classList.add(animatedType);
   }
-}
-
-function appendElement(tag, parent, content, classes, attributes) {
-  var element = document.createElement(tag);
-  if (classes) {
-    classes.forEach(function(clazz) {
-      element.classList.add(clazz);
-    });
-  }
-  if (attributes) {
-    Object.keys(attributes).forEach(function(key) {
-      element.setAttribute(key, attributes[key]);
-    });
-  }
-  if (typeof content === "undefined") {
-    element.textContent = "undefined";
-  } else if (content == null) {
-  } else if (content.length == 0) {
-    element.innerHTML = "&nbsp;";
-  } else {
-    element.textContent = content;
-  }
-  parent.appendChild(element);
-  return element;
 }
 
 function propertyToIDL(property) {
-  if (property == 'float') {
-    return 'cssFloat';
+  if (property == "float") {
+    return "cssFloat";
   }
   // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
   return property.replace(/-([a-z])/gi, function(str, group) {
@@ -293,7 +263,7 @@ function downloadJSON() {
 
     var testcaseElement = resultElement.querySelector(".testcase");
     var testcase = testcaseElement.querySelector("div:first-child")
-                   .textContent.split("⇒");
+                   .textContent.split(RIGHT_ARROW);
     testcase[0] = toJSONValue(testcase[0]);
     testcase[1] = toJSONValue(testcase[1]);
     property.testcase = testcase;
@@ -307,12 +277,12 @@ function downloadJSON() {
     if (errorElement) {
       property.error = errorElement.textContent;
     } else {
-      property.result0 =
-        toJSONValue(resultElement.querySelector(".result0").textContent);
-      property.result50 =
-        toJSONValue(resultElement.querySelector(".result50").textContent);
-      property.result100 =
-        toJSONValue(resultElement.querySelector(".result100").textContent);
+      property.state0 =
+        toJSONValue(resultElement.querySelector(".state0").textContent);
+      property.state50 =
+        toJSONValue(resultElement.querySelector(".state50").textContent);
+      property.state100 =
+        toJSONValue(resultElement.querySelector(".state100").textContent);
     }
 
     results[propertyName] = property;

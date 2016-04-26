@@ -37,10 +37,10 @@ function appendJSON(json) {
 function updateUI(browserInformation, propertyName, result) {
   var resultsElement = document.getElementById("results");
 
-  var testcaseText = result.testcase[0] + "⇒" + result.testcase[1];
+  var testcaseText = result.testcase[0] + RIGHT_ARROW + result.testcase[1];
   var testcaseClass = "tc-" + testcaseText.replace(/\s|\(|\)|%|,|\./g, "");
   var resultElement =
-        resultsElement.querySelector("." + propertyName + "." + testcaseClass);
+    resultsElement.querySelector("." + propertyName + "." + testcaseClass);
 
   var isExistingTestcase = false;
   if (resultElement) {
@@ -77,13 +77,8 @@ function updateUI(browserInformation, propertyName, result) {
   var resultType =
     result.error
     ? "error"
-    : result.result0 != result.result50
-    ? result.result50 != result.result100
-    ? "animated"
-    : "discrete"
-    : result.result50 != result.result100
-    ? "discrete"
-    : "ignored";
+    : getAnimatedType(result.state0, result.state50, result.state100);
+
   appendElement("dd", dlElement, browserInformation, ["browser", resultType]);
 
   // Result columns
@@ -91,11 +86,11 @@ function updateUI(browserInformation, propertyName, result) {
     appendElement("dd", dlElement, result.error, ["error-result"]);
   } else {
     // 0% column
-    appendElement("dd", dlElement, result.result0, ["result0"]);
+    appendElement("dd", dlElement, result.state0, ["state0"]);
     // 5% column
-    appendElement("dd", dlElement, result.result50, ["result50"]);
+    appendElement("dd", dlElement, result.state50, ["state50"]);
     // 100% column
-    appendElement("dd", dlElement, result.result100, ["result100"]);
+    appendElement("dd", dlElement, result.state100, ["state100"]);
     if (isExistingTestcase) {
       updateResultColumns(resultElement);
     }
@@ -103,9 +98,9 @@ function updateUI(browserInformation, propertyName, result) {
 }
 
 function updateResultColumns(resultElement) {
-  updateResultColumn(resultElement.querySelectorAll(".result0"));
-  updateResultColumn(resultElement.querySelectorAll(".result50"));
-  updateResultColumn(resultElement.querySelectorAll(".result100"));
+  updateResultColumn(resultElement.querySelectorAll(".state0"));
+  updateResultColumn(resultElement.querySelectorAll(".state50"));
+  updateResultColumn(resultElement.querySelectorAll(".state100"));
 }
 
 function updateResultColumn(elements) {
@@ -129,28 +124,4 @@ function updateResultColumn(elements) {
     element.classList.remove("different");
     element.classList.add(clazz);
   }
-}
-
-function appendElement(tag, parent, content, classes, attributes) {
-  var element = document.createElement(tag);
-  if (classes) {
-    classes.forEach(function(clazz) {
-      element.classList.add(clazz);
-    });
-  }
-  if (attributes) {
-    Object.keys(attributes).forEach(function(key) {
-      element.setAttribute(key, attributes[key]);
-    });
-  }
-  if (typeof content === "undefined") {
-    element.textContent = "undefined";
-  } else if (content == null) {
-  } else if (content.length == 0) {
-    element.innerHTML = "&nbsp;";
-  } else {
-    element.textContent = content;
-  }
-  parent.appendChild(element);
-  return element;
 }
