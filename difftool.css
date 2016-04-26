@@ -17,9 +17,7 @@
 }
 
 #equal-value,
-.state0.equal,
-.state50.equal,
-.state100.equal {
+.equal {
   background: linear-gradient(to bottom, #acf3ff 0%,#82d1de 100%) !important;
 }
 

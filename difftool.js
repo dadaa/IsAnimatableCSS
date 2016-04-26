@@ -74,23 +74,22 @@ function updateUI(browserInformation, propertyName, result) {
   }
 
   // Browser columns
-  var resultType =
+  var animatedType =
     result.error
     ? "error"
     : getAnimatedType(result.state0, result.state50, result.state100);
-
-  appendElement("dd", dlElement, browserInformation, ["browser", resultType]);
+  appendElement("dd", dlElement, browserInformation, ["browser", animatedType]);
 
   // Result columns
   if (result.error) {
-    appendElement("dd", dlElement, result.error, ["error-result"]);
+    appendElement("dd", dlElement, result.error, ["error-result", "error"]);
   } else {
     // 0% column
-    appendElement("dd", dlElement, result.state0, ["state0"]);
+    appendElement("dd", dlElement, result.state0, ["state0", animatedType]);
     // 5% column
-    appendElement("dd", dlElement, result.state50, ["state50"]);
+    appendElement("dd", dlElement, result.state50, ["state50", animatedType]);
     // 100% column
-    appendElement("dd", dlElement, result.state100, ["state100"]);
+    appendElement("dd", dlElement, result.state100, ["state100", animatedType]);
     if (isExistingTestcase) {
       updateResultColumns(resultElement);
     }
@@ -98,9 +97,22 @@ function updateUI(browserInformation, propertyName, result) {
 }
 
 function updateResultColumns(resultElement) {
-  updateResultColumn(resultElement.querySelectorAll(".state0"));
-  updateResultColumn(resultElement.querySelectorAll(".state50"));
-  updateResultColumn(resultElement.querySelectorAll(".state100"));
+  var isEaualVlues =
+    updateResultColumn(resultElement.querySelectorAll(".state0"));
+  isEaualVlues &=
+    updateResultColumn(resultElement.querySelectorAll(".state50"));
+  isEaualVlues &=
+    updateResultColumn(resultElement.querySelectorAll(".state100"));
+
+  var propertyElement = resultElement.querySelector(".property");
+  var testcaseElement = resultElement.querySelector(".testcase");
+  if (isEaualVlues) {
+    propertyElement.classList.add("equal");
+    testcaseElement.classList.add("equal");
+  } else {
+    propertyElement.classList.remove("equal");
+    testcaseElement.classList.remove("equal");
+  }
 }
 
 function updateResultColumn(elements) {
@@ -124,4 +136,5 @@ function updateResultColumn(elements) {
     element.classList.remove("different");
     element.classList.add(clazz);
   }
+  return isEqaulValues;
 }
