@@ -1,0 +1,108 @@
+body {
+  font-family: monospace;
+}
+
+main {
+  display: inline-block;
+  float: left;
+}
+
+main dl {
+  margin: 0;
+}
+
+main dd {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding-right: 1px;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px 1px;
+  padding: 0.5em 0 0.5em 0;
+  word-break: break-all;
+}
+
+main dd:last-child {
+  border-right-width: 1px;
+}
+
+#result-header {
+  margin-top: 0;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+}
+
+li:first-child dd {
+  border-top-width: 1px;
+}
+
+#full-animation,
+.animated {
+  background: linear-gradient(to bottom, #c9fcd4 0%,#aef9bd 100%) !important;
+}
+
+#discrete-animation,
+.discrete {
+  background: linear-gradient(to bottom, #fff5d3 0%,#ffeeba 100%) !important;
+}
+
+.error {
+  background: linear-gradient(to bottom, #ff3333 0%,#ff1111 100%) !important;
+}
+
+.link {
+  display: inline-block;
+  border: 1px solid black;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+.spec {
+  text-decoration: none;
+  color: black;
+}
+
+#legend,
+.result:nth-child(odd) dd {
+  background: linear-gradient(to bottom, #eee 0%,#e0e0e0 100%);
+}
+
+.result:nth-child(even) dd {
+  background: linear-gradient(to bottom, #ccc 0%,#c0c0c0 100%);
+}
+
+#css-transition-animatable,
+.css-transition-spec {
+  margin-bottom: 1px;
+  color: white;
+  background: linear-gradient(to bottom, #fa8072 0%,#e65443 100%);
+}
+
+#side-panel {
+  float: left;
+  margin-left: 2em;
+}
+
+#side-panel a {
+  color: black;
+}
+
+#legend {
+  width: 14em;
+  padding: 0.5em;
+  border: 1px solid black;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#legend dd {
+  display: inline-block;
+  width: 14em;
+  border: 1px solid black;
+  margin: 0.5em 0 0 0;
+  padding: 0.5em 0;
+}
