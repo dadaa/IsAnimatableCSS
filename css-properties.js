@@ -447,7 +447,7 @@ var CSSProperties =
   },
   "dominant-baseline": {
     "link": "https://drafts.csswg.org/css-inline/#propdef-dominant-baseline",
-    "test-datatypes": [["auto", "text-bottom"]],
+    "test-datatypes": [["auto", "ideographic"]],
     "animatables": []
   },
   "elevation": {
