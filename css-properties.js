@@ -5,7 +5,7 @@ var CSSProperties =
   //  "link": "$link-to-spec",
   //  "test-datatypes": ["<$datatyoe>" or ["start value", "end value"], ...],
   //  "animatables": ["<$datatyoe>", ...], // by individual spec.
-  //  "css-transition-animatables": ["<$datatyoe>", ...] // by css transition spec
+  //  "need-prefix": { "$BrowserName1": "$prefix1", "$BrowserName2": "$prefix2" }
   // },
   // also please ref CSSDataTypes.js
 
@@ -358,42 +358,50 @@ var CSSProperties =
   "column-count": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-count",
     "test-datatypes": ["<integer>"],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-fill": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-fill",
     "test-datatypes": [["auto", "balance"]],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-gap": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-gap",
     "test-datatypes": ["<length>"],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-rule-color": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-color",
     "test-datatypes": ["<color>"],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-rule-style": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-style",
     "test-datatypes": ["<border-style>"],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-rule-width": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-width",
     "test-datatypes": ["<border-width>"],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-span": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-span",
     "test-datatypes": [["none", "all"]],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "column-width": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-width",
     "test-datatypes": [],
-    "animatables": []
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "content": {
     "link": "https://drafts.csswg.org/css-content-3/#propdef-content",
