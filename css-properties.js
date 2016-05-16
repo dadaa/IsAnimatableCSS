@@ -582,7 +582,7 @@ var CSSProperties =
   },
   "font-synthesis": {
     "link": "https://drafts.csswg.org/css-fonts-3/#propdef-font-synthesis",
-    "test-datatypes": [["weight style", "none"]],
+    "test-datatypes": [["none", "weight style"]],
     "animatables": []
   },
   "font-variant-alternates": {
