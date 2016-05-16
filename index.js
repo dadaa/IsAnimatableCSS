@@ -124,8 +124,6 @@ function animateCSSAnimation(target, propertyName, idlName, values) {
   var stylesheet = document.styleSheets[document.styleSheets.length - 1];
   stylesheet.insertRule(keyframes, stylesheet.length);
 
-  target.style[propertyName] = values[0];
-  getComputedStyle(target)[idlName]; // flush
   target.style.animation = "1s linear 0s both test";
   var state0 = getComputedStyle(target)[idlName];
 
