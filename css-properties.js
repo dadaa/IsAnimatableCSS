@@ -636,11 +636,6 @@ var CSSProperties =
     "test-datatypes": [["0deg", "90deg"]],
     "animatables": []
   },
-  "grid-area": {
-    "link": "https://drafts.csswg.org/css-grid/#propdef-grid-area",
-    "test-datatypes": ["<grid-line>"],
-    "animatables": []
-  },
   "grid-auto-columns": {
     "link": "https://drafts.csswg.org/css-grid/#propdef-grid-auto-columns",
     "test-datatypes": ["<track-size>"],
