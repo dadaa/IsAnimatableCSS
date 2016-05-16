@@ -525,8 +525,8 @@ var CSSProperties =
   },
   "flood-opacity": {
     "link": "https://drafts.fxtf.org/filters/#propdef-flood-opacity",
-    "test-datatypes": ["<number>", "<percentage>"],
-    "animatables": ["<number>", "<percentage>"]
+    "test-datatypes": ["<alphavalue>", "<percentage>"],
+    "animatables": ["<alphavalue>", "<percentage>"]
   },
   "flow": {
     "link": "https://drafts.csswg.org/css-template/#flow0",
