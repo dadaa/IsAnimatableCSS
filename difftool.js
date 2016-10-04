@@ -53,11 +53,13 @@ function updateUI(browserInformation, propertyName, result) {
   var dlElement = appendElement("dl", resultElement, null);
   if (!isExistingTestcase) {
     // Property column
-    var specLink = CSSProperties[propertyName]["link"];
     var propertyElement = appendElement("dd", dlElement, null, ["property"]);
+    var specLink = "";
+    if (CSSProperties[propertyName]) {
+      specLink = CSSProperties[propertyName]["link"];
+    }
     appendElement("a", propertyElement, propertyName,
                   ["spec"], { "href": specLink });
-
     // Testcase column
     var testcaseElement = appendElement("dd", dlElement, null, ["testcase"]);
     var testdataElement = appendElement("div", testcaseElement, testcaseText);
