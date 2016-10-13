@@ -335,7 +335,7 @@ var CSSDataTypes =
   "<stroke-linejoin>": {
     "link": "https://www.w3.org/TR/2015/WD-svg-strokes-20150409/#StrokeLinejoinProperty",
     "animtype-link": "",
-    "testcases": [["miter", "miter-clip"]]
+    "testcases": [["miter", "round"]]
   },
   "<time>": {
     "link": "https://www.w3.org/TR/css3-values/#time",

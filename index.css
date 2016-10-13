@@ -1,6 +1,4 @@
 #target {
-  /* Needed for z-index */
-  position: absolute;
   /* Needed for border-width related properties */
   border-style: solid;
   /* Needed for column-rule-width */

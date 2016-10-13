@@ -64,7 +64,7 @@ function buildOne(propertyName, propertyData) {
     }
   }
   testcases.forEach(function(testcase) {
-    var result = execute(propertyNameWithPrefix, testcase.values);
+    var result = execute(propertyNameWithPrefix, propertyName, testcase.values);
     updateUI(propertyName, propertyNameWithPrefix, testcase, result);
   });
 }
@@ -138,18 +138,24 @@ function animateCSSAnimation(target, propertyName, idlName, values) {
   return { state0: state0, state50: state50, state100: state100 };
 }
 
-function execute(propertyName, values) {
+function execute(propertyNameWithPrefix, propertyName, values) {
   var property = CSSProperties[propertyName];
   var targetContainer = document.createElement("div");;
   var target = document.createElement("div");
   targetContainer.appendChild(target);
   targetContainer.id = "target-container";
   target.id = "target";
+  if (property["need-css"]) {
+    var csss = property["need-css"];
+    for (var cssName in csss) {
+      target.style[cssName] = csss[cssName];
+    }
+  }
   document.body.appendChild(targetContainer);
 
   try {
-    var idlName = propertyToIDL(propertyName);
-    return animate(target, propertyName, idlName, values);
+    var idlName = propertyToIDL(propertyNameWithPrefix);
+    return animate(target, propertyNameWithPrefix, idlName, values);
   } catch (e) {
     return { error: e.name + ":" + e.message};
   } finally {
