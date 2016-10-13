@@ -25,7 +25,7 @@ var CSSProperties =
   },
   "alignment-baseline": {
     "link": "https://drafts.csswg.org/css-inline/#alignment-baseline-property",
-    "test-datatypes": [["text-bottom", "text-top"]],
+    "test-datatypes": [["baseline", "middle"]],
     "animatables": []
   },
   "animation-delay": {
@@ -70,8 +70,9 @@ var CSSProperties =
   },
   "appearance": {
     "link": "https://drafts.csswg.org/css-ui-4/#propdef-appearance",
-    "test-datatypes": [["auto", "none"]],
-    "animatables": []
+    "test-datatypes": [["button", "none"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "azimuth": {
     "link": "http://www.w3.org/TR/2011/REC-CSS2-20110607/aural.html#propdef-azimuth",
@@ -135,11 +136,23 @@ var CSSProperties =
     "test-datatypes": ["<length>", "<percentage>", ["sub", "super"]],
     "animatables": []
   },
+  "binding": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-binding",
+    "test-datatypes": ["<url>"],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "border-bottom-color": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#border-bottom-color",
     "test-datatypes": ["<color>"],
     "animatables": ["<color>"],
     "css-transition-animatables": ["<color>"]
+  },
+  "border-bottom-colors": {
+    "link": "#",
+    "test-datatypes": [["red red red red", "lime lime lime lime"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "border-bottom-left-radius": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#border-bottom-left-radius",
@@ -203,6 +216,12 @@ var CSSProperties =
     "animatables": ["<color>"],
     "css-transition-animatables": ["<color>"]
   },
+  "border-left-colors": {
+    "link": "#",
+    "test-datatypes": [["red red red red", "lime lime lime lime"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "border-left-style": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#border-left-style",
     "test-datatypes": ["<line-style>"],
@@ -219,6 +238,12 @@ var CSSProperties =
     "test-datatypes": ["<color>"],
     "animatables": ["<color>"],
     "css-transition-animatables": ["<color>"]
+  },
+  "border-right-colors": {
+    "link": "#",
+    "test-datatypes": [["red red red red", "lime lime lime lime"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "border-right-style": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#border-right-style",
@@ -243,6 +268,12 @@ var CSSProperties =
     "animatables": ["<color>"],
     "css-transition-animatables": ["<color>"]
   },
+  "border-top-colors": {
+    "link": "#",
+    "test-datatypes": [["red red red red", "lime lime lime lime"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "border-top-left-radius": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#border-top-left-radius",
     "test-datatypes": ["<length>", "<percentage>"],
@@ -264,10 +295,39 @@ var CSSProperties =
     "animatables": ["<length>"],
     "css-transition-animatables": ["<length>"]
   },
+  "box-align": {
+    "link": "https://www.w3.org/TR/css-flexbox-1/",
+    "test-datatypes": [["center", "stretch"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "box-decoration-break": {
     "link": "https://drafts.csswg.org/css-break/#propdef-box-decoration-break",
     "test-datatypes": [["slice", "clone"]],
     "animatables": []
+  },
+  "box-direction": {
+    "link": "http://www.w3.org/TR/css3-flexbox/",
+    "test-datatypes": [["reverse", "normal"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
+  "box-ordinal-group": {
+    "link": "https://www.w3.org/TR/css-flexbox-1/",
+    "test-datatypes": ["<integer>"],
+    "animatables": []
+  },
+  "box-orient": {
+    "link": "https://www.w3.org/TR/css-flexbox-1/",
+    "test-datatypes": [["horizontal", "vertical"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
+  "box-pack": {
+    "link": "https://www.w3.org/TR/2009/WD-css3-flexbox-20090723/#propdef-box-pack",
+    "test-datatypes": [["center", "end"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "box-shadow": {
     "link": "https://drafts.csswg.org/css-backgrounds-3/#box-shadow",
@@ -350,6 +410,16 @@ var CSSProperties =
     "test-datatypes": ["<color>"],
     "animatables": ["<color>"]
   },
+  "color-adjust": {
+    "link": "https://drafts.csswg.org/css-color-4/#color-adjust",
+    "test-datatypes": [["economy", "exact"]],
+    "animatables": []
+  },
+  "color-interpolation": {
+    "link": "https://svgwg.org/svg2-draft/painting.html#ColorInterpolationProperty",
+    "test-datatypes": [["auto", "sRGB"]],
+    "animatables": []
+  },
   "color-interpolation-filters": {
     "link": "https://drafts.fxtf.org/filters/#propdef-color-interpolation-filters",
     "test-datatypes": [["auto", "sRGB"]],
@@ -358,50 +428,47 @@ var CSSProperties =
   "column-count": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-count",
     "test-datatypes": ["<integer>"],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-fill": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-fill",
     "test-datatypes": [["auto", "balance"]],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-gap": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-gap",
     "test-datatypes": ["<length>"],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-rule-color": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-color",
     "test-datatypes": ["<color>"],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-rule-style": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-style",
     "test-datatypes": ["<border-style>"],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-rule-width": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-rule-width",
     "test-datatypes": ["<border-width>"],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-span": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-span",
     "test-datatypes": [["none", "all"]],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "animatables": []
   },
   "column-width": {
     "link": "https://drafts.csswg.org/css-multicol/#propdef-column-width",
-    "test-datatypes": [],
-    "animatables": [],
-    "need-prefix": { "Firefox": "-moz" }
+    "test-datatypes": ["<length>"],
+    "animatables": []
+  },
+  "contain": {
+    "link": "https://drafts.csswg.org/css-containment/#propdef-contain",
+    "test-datatypes": [["strict", "none"]],
+    "animatables": []
   },
   "content": {
     "link": "https://drafts.csswg.org/css-content-3/#propdef-content",
@@ -468,6 +535,11 @@ var CSSProperties =
     "test-datatypes": [["show", "hide"]],
     "animatables": []
   },
+  "fill-rule": {
+    "link": "https://drafts.fxtf.org/paint/#propdef-fill-rule",
+    "test-datatypes": [["evenodd", "nonzero"]],
+    "animatables": []
+  },
   "filter": {
     "link": "https://drafts.fxtf.org/filters/#propdef-filter",
     "test-datatypes": ["<filter-function-list>"],
@@ -503,10 +575,32 @@ var CSSProperties =
     "test-datatypes": [["left", "right"]],
     "animatables": []
   },
+  "float-edge": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-float-edge",
+    "test-datatypes": [["margin-box", "content-box"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "float-defer": {
     "link": "https://drafts.csswg.org/css-page-floats/#propdef-float-defer",
     "test-datatypes": ["<integer>", ["last", "none"]],
     "animatables": []
+  },
+  "float-defer": {
+    "link": "https://drafts.csswg.org/css-page-floats/#propdef-float-defer",
+    "test-datatypes": ["<integer>", ["last", "none"]],
+    "animatables": []
+  },
+  "font-feature-settings": {
+    "link": "https://drafts.csswg.org/css-fonts/#descdef-font-feature-settings",
+    "test-datatypes": [["tnum", "normal"]],
+    "animatables": []
+  },
+  "force-broken-image-icon": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-force-broken-image-icon",
+    "test-datatypes": ["<integer>"],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "float-offset": {
     "link": "https://drafts.csswg.org/css-page-floats/#propdef-float-offset",
@@ -757,6 +851,11 @@ var CSSProperties =
     "test-datatypes": [["100dpi", "500dpi"]],
     "animatables": []
   },
+  "ime-mode": {
+    "link": "https://drafts.csswg.org/css-ui/#input-method-editor",
+    "test-datatypes": [["disabled", "auto"]],
+    "animatables": []
+  },
   "initial-letter": {
     "link": "https://drafts.csswg.org/css-inline/#propdef-initial-letter",
     "test-datatypes": ["<number>"],
@@ -922,6 +1021,11 @@ var CSSProperties =
   "marquee-style": {
     "link": "https://www.w3.org/TR/2008/WD-css3-marquee-20080801/#marquee-style",
     "test-datatypes": [["scroll", "slide"]],
+    "animatables": []
+  },
+  "mask": {
+    "link": "https://drafts.fxtf.org/css-masking-1/#the-mask",
+    "test-datatypes": ["<url>"],
     "animatables": []
   },
   "mask-border-mode": {
@@ -1114,10 +1218,22 @@ var CSSProperties =
     "test-datatypes": ["<integer>"],
     "animatables": ["<integer>"]
   },
+  "orient": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-orient",
+    "test-datatypes": [["block", "inline"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "orphans": {
     "link": "https://drafts.csswg.org/css-break/#propdef-orphans",
     "test-datatypes": ["<integer>"],
     "animatables": []
+  },
+  "osx-font-smoothing": {
+    "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth",
+    "test-datatypes": [["never", "always"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "outline-color": {
     "link": "https://drafts.csswg.org/css-ui-4/#outline-color",
@@ -1144,6 +1260,11 @@ var CSSProperties =
   "overflow": {
     "link": "https://drafts.csswg.org/css-overflow-3/#propdef-overflow",
     "test-datatypes": [["visible", "hidden"]],
+    "animatables": []
+  },
+  "overflow-clip-box": {
+    "link": "https://developer.mozilla.org/ja/docs/Web/CSS/overflow-clip-box",
+    "test-datatypes": [["padding-box", "content-box"]],
     "animatables": []
   },
   "overflow-wrap": {
@@ -1200,9 +1321,19 @@ var CSSProperties =
     "test-datatypes": [["always", "avoid"]],
     "animatables": []
   },
+  "page-break-inside": {
+    "link": "https://drafts.csswg.org/css-break-3/#propdef-break-inside",
+    "test-datatypes": [["auto", "avoid"]],
+    "animatables": []
+  },
   "page-policy": {
     "link": "https://www.w3.org/TR/css3-content/#page-policy",
     "test-datatypes": [["start", "first"]],
+    "animatables": []
+  },
+  "paint-order": {
+    "link": "https://svgwg.org/svg2-draft/painting.html#PaintOrderProperty",
+    "test-datatypes": [["fill", "stroke"]],
     "animatables": []
   },
   "pause-after": {
@@ -1259,6 +1390,11 @@ var CSSProperties =
     "link": "https://drafts.csswg.org/css-round-display/#propdef-polar-origin",
     "test-datatypes": ["<position>"],
     "animatables": ["<length>", "<percentage>"]
+  },
+  "pointer-events": {
+    "link": "https://svgwg.org/svg2-draft/interact.html#PointerEventsProperty",
+    "test-datatypes": [["visibleFill", "visiblePainted"]],
+    "animatables": []
   },
   "position": {
     "link": "https://drafts.csswg.org/css-position/#propdef-position",
@@ -1336,10 +1472,30 @@ var CSSProperties =
     "test-datatypes": [["start", "end"]],
     "animatables": []
   },
+  "scroll-snap-coordinate": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-coordinate",
+    "test-datatypes": ["<position>"],
+    "animatables": []
+  },
+  "scroll-snap-destination": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-destination",
+    "test-datatypes": ["<position>"],
+    "animatables": []
+  },
   "scroll-snap-margin": {
     "link": "https://drafts.csswg.org/css-snappoints/#propdef-scroll-snap-margin",
     "test-datatypes": ["<length>"],
     "animatables": ["<length>"]
+  },
+  "scroll-snap-points-x": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-points-x",
+    "test-datatypes": [["repeat(10px)", "none"]],
+    "animatables": []
+  },
+  "scroll-snap-points-y": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-points-y",
+    "test-datatypes": [["repeat(10px)", "none"]],
+    "animatables": []
   },
   "scroll-snap-padding": {
     "link": "https://drafts.csswg.org/css-snappoints/#propdef-scroll-snap-padding",
@@ -1348,6 +1504,16 @@ var CSSProperties =
   },
   "scroll-snap-type": {
     "link": "https://drafts.csswg.org/css-snappoints/#propdef-scroll-snap-type",
+    "test-datatypes": [["mandatory", "proximity"]],
+    "animatables": []
+  },
+  "scroll-snap-type-x": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-type-x",
+    "test-datatypes": [["mandatory", "proximity"]],
+    "animatables": []
+  },
+  "scroll-snap-type-y": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/scroll-snap-type-y",
     "test-datatypes": [["mandatory", "proximity"]],
     "animatables": []
   },
@@ -1370,6 +1536,11 @@ var CSSProperties =
     "link": "http://dev.w3.org/csswg/css-shapes/#propdef-shape-outside",
     "test-datatypes": ["<basic-shape>", "<image>"],
     "animatables": ["<basic-shape>"]
+  },
+  "shape-rendering": {
+    "link": "https://svgwg.org/svg2-draft/painting.html#ShapeRenderingProperty",
+    "test-datatypes": [["optimizeSpeed", "auto"]],
+    "animatables": []
   },
   "size": {
     "link": "https://drafts.csswg.org/css-page-3/#descdef-page-size",
@@ -1405,6 +1576,12 @@ var CSSProperties =
     "link": "https://www.w3.org/TR/2011/REC-CSS2-20110607/aural.html#propdef-speech-rate",
     "test-datatypes": ["<number>", ["x-slow", "faster"]],
     "animatables": []
+  },
+  "stack-sizing": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-stack-sizing",
+    "test-datatypes": [["ignore", "stretch-to-fit"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "stress": {
     "link": "http://www.w3.org/TR/2011/REC-CSS2-20110607/aural.html#propdef-stress",
@@ -1498,7 +1675,8 @@ var CSSProperties =
   "tab-size": {
     "link": "https://drafts.csswg.org/css-text-3/#propdef-tab-size",
     "test-datatypes": ["<length>", "<integer>"],
-    "animatables": ["<length>"]
+    "animatables": ["<length>"],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "table-layout": {
     "link": "https://drafts.csswg.org/css-tables/#propdef-table-layout",
@@ -1512,6 +1690,11 @@ var CSSProperties =
   },
   "text-align-last": {
     "link": "https://drafts.csswg.org/css-text-3/#propdef-text-align-last",
+    "test-datatypes": [["start", "end"]],
+    "animatables": []
+  },
+  "text-anchor": {
+    "link": "https://svgwg.org/svg2-draft/text.html#TextAnchorProperty",
     "test-datatypes": [["start", "end"]],
     "animatables": []
   },
@@ -1597,11 +1780,22 @@ var CSSProperties =
     "test-datatypes": [["clip", "ellipsis"]],
     "animatables": []
   },
+  "text-rendering": {
+    "link": "https://svgwg.org/svg2-draft/painting.html#TextRenderingProperty",
+    "test-datatypes": [["optimizeSpeed", "auto"]],
+    "animatables": []
+  },
   "text-shadow": {
     "link": "http://dev.w3.org/csswg/css-text-decor-3/#propdef-text-shadow",
     "test-datatypes": ["<shadow>"], //originaly none | [ <length>{2,3} && <color>? ]#
     "animatables": ["<shadow>"],
     "css-transition-animatables": ["<shadow>"]
+  },
+  "text-size-adjust": {
+    "link": "https://drafts.csswg.org/css-size-adjust/#propdef-text-size-adjust",
+    "test-datatypes": ["<percentage>"],
+    "animatables": ["<percentage>"],
+    "need-prefix": { "Firefox": "-moz", "Chrome": "-webkit" }
   },
   "text-space-collapse": {
     "link": "https://drafts.csswg.org/css-text-4/#propdef-text-space-collapse",
@@ -1617,6 +1811,12 @@ var CSSProperties =
     "link": "https://drafts.csswg.org/css-text-4/#propdef-text-spacing",
     "test-datatypes": [["trim-start", "trim-end"]],
     "animatables": []
+  },
+  "text-stroke-width": {
+    "link": "https://compat.spec.whatwg.org/#propdef--webkit-text-stroke-width",
+    "test-datatypes": ["<length>"],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-webkit", "Chrome": "-webkit" }
   },
   "text-transform": {
     "link": "https://drafts.csswg.org/css-text-3/#propdef-text-transform",
@@ -1639,10 +1839,20 @@ var CSSProperties =
     "animatables": ["<length>", "<percentage>"],
     "css-transition-animatables": ["<length>", "<percentage>"]
   },
+  "touch-action": {
+    "link": "https://w3c.github.io/pointerevents/#the-touch-action-css-property",
+    "test-datatypes": [["auto", "none"]],
+    "animatables": []
+  },
   "transform": {
     "link": "https://drafts.csswg.org/css-transforms/#propdef-transform",
     "test-datatypes": ["<transform-function>"],
     "animatables": ["<transform-function>"]
+  },
+  "transform-box": {
+    "link": "https://drafts.csswg.org/css-transforms/#propdef-transform-box",
+    "test-datatypes": [["fill-box", "border-box"]],
+    "animatables": []
   },
   "transform-origin": {
     "link": "https://drafts.csswg.org/css-transforms/#propdef-transform-origin",
@@ -1679,9 +1889,33 @@ var CSSProperties =
     "test-datatypes": [["embed", "bidi-override"]],
     "animatables": []
   },
+  "user-focus": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-user-focus",
+    "test-datatypes": [["normal", "ignore"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
+  "user-input": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-user-input",
+    "test-datatypes": [["enabled", "disabled"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
+  "user-modify": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-user-modify",
+    "test-datatypes": [["read-write", "read-only"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
   "user-select": {
     "link": "https://drafts.csswg.org/css-ui-4/#propdef-user-select",
     "test-datatypes": [["text", "contain"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
+  },
+  "vector-effect": {
+    "link": "https://svgwg.org/svg2-draft/coords.html#VectorEffectProperty",
+    "test-datatypes": [["non-scaling-stroke", "none"]],
     "animatables": []
   },
   "vertical-align": {
@@ -1750,6 +1984,12 @@ var CSSProperties =
     "link": "https://drafts.csswg.org/css-break/#propdef-widows",
     "test-datatypes": ["<integer>"],
     "animatables": []
+  },
+  "window-dragging": {
+    "link": "https://developer.mozilla.org/en/docs/Web/CSS/-moz-window-dragging",
+    "test-datatypes": [["drag", "no-drag"]],
+    "animatables": [],
+    "need-prefix": { "Firefox": "-moz" }
   },
   "width": {
     "link": "https://www.w3.org/TR/2016/WD-CSS22-20160412/visudet.html#width",

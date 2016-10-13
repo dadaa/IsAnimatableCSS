@@ -139,11 +139,12 @@ function animateCSSAnimation(target, propertyName, idlName, values) {
 }
 
 function execute(propertyName, values) {
-  var targetContainer = document.createElement("div");
-  targetContainer.id = "target-container";
+  var property = CSSProperties[propertyName];
+  var targetContainer = document.createElement("div");;
   var target = document.createElement("div");
-  target.id = "target";
   targetContainer.appendChild(target);
+  targetContainer.id = "target-container";
+  target.id = "target";
   document.body.appendChild(targetContainer);
 
   try {
