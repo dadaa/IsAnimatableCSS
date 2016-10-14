@@ -64,7 +64,7 @@ function buildOne(propertyName, propertyData) {
     }
   }
   testcases.forEach(function(testcase) {
-    var result = execute(propertyNameWithPrefix, propertyName, testcase.values);
+    var result = execute(propertyName, propertyNameWithPrefix, testcase.values);
     updateUI(propertyName, propertyNameWithPrefix, testcase, result);
   });
 }
@@ -138,7 +138,7 @@ function animateCSSAnimation(target, propertyName, idlName, values) {
   return { state0: state0, state50: state50, state100: state100 };
 }
 
-function execute(propertyNameWithPrefix, propertyName, values) {
+function execute(propertyName, propertyNameWithPrefix, values) {
   var property = CSSProperties[propertyName];
   var targetContainer = document.createElement("div");;
   var target = document.createElement("div");
@@ -249,6 +249,11 @@ function updateUI(propertyName, propertyNameWithPrefix, testcase, result) {
 function propertyToIDL(property) {
   if (property == "float") {
     return "cssFloat";
+  }
+  var prefixMatch = property.match(/^-(\w+)-/);
+  if (prefixMatch) {
+    var prefix = prefixMatch[1] === "moz" ? "Moz" : prefixMatch[1];
+    property = prefix + property.substring(prefixMatch[0].length - 1);
   }
   // https://drafts.csswg.org/cssom/#css-property-to-idl-attribute
   return property.replace(/-([a-z])/gi, function(str, group) {
